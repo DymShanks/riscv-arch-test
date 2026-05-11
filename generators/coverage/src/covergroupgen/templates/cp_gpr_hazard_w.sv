@@ -1,0 +1,5 @@
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR write hazard
+        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
