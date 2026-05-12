@@ -243,24 +243,24 @@ I_lui_cg_cp_rd_b31:
 
 
 # Testcase cp_gpr_hazard_w nohaz
-  RVTEST_TESTDATA_LOAD_INT(x9, x7) # load rs1: x7 = 0x3ae6146e3d2bd726
-  RVTEST_TESTDATA_LOAD_INT(x9, x13) # load rs2: x13 = 0xb9a84a9305831c4e
+  RVTEST_TESTDATA_LOAD_INT(x9, x10) # load rs1: x10 = 0xc570584643dbf40b
+  RVTEST_TESTDATA_LOAD_INT(x9, x20) # load rs2: x20 = 0x21024e2e7ee432dd
 I_lui_cg_cp_gpr_hazard_w_nohaz:
-  add x28, x7, x13 # perform operation
-  lui x27, 1039494 # perform operation
-  # Check if x28 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x28, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
-  # Check if x27 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x27, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
+  add x14, x10, x20 # perform operation
+  lui x29, 749560 # perform operation
+  # Check if x14 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x19, x5, x4, x14, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
+  # Check if x29 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x19, x5, x4, x29, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x9, x3) # load rs1: x3 = 0xed7369e040ace0b0
-  RVTEST_TESTDATA_LOAD_INT(x9, x6) # load rs2: x6 = 0x59cb83bda0b772ed
+  RVTEST_TESTDATA_LOAD_INT(x9, x25) # load rs1: x25 = 0x9652cefe2783bdf0
+  RVTEST_TESTDATA_LOAD_INT(x9, x3) # load rs2: x3 = 0x85aced8397262942
 I_lui_cg_cp_gpr_hazard_w_waw:
-  add x25, x3, x6 # perform operation
-  lui x25, 119485 # perform operation
-  # Check if x25 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x25, I_lui_cg_cp_gpr_hazard_w_waw, I_lui_cg_cp_gpr_hazard_w_waw_str)
+  add x18, x25, x3 # perform operation
+  lui x18, 555289 # perform operation
+  # Check if x18 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x19, x5, x4, x18, I_lui_cg_cp_gpr_hazard_w_waw, I_lui_cg_cp_gpr_hazard_w_waw_str)
 
 /////////////////////////////////
 // cp_imm_edges_20bit
@@ -437,10 +437,10 @@ RVTEST_CODE_END
 RVTEST_DATA_BEGIN
 
 // Test data
-.dword 0x3ae6146e3d2bd726
-.dword 0xb9a84a9305831c4e
-.dword 0xed7369e040ace0b0
-.dword 0x59cb83bda0b772ed
+.dword 0xc570584643dbf40b
+.dword 0x21024e2e7ee432dd
+.dword 0x9652cefe2783bdf0
+.dword 0x85aced8397262942
 
 // Testcase strings
 I_lui_cg_cp_rd_b0_str: .string "\"test: 1; cg: I_lui_cg; cp: cp_rd; bin: b0\""

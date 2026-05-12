@@ -88,7 +88,7 @@ def _make_gpr_hazard(
     filler: str = "",
 ) -> list[str]:
     """Generate one adjacent GPR producer/consumer hazard testcase."""
-    producer = generate_random_params(test_data, "R", exclude_regs=[0])
+    producer = generate_random_params(test_data, "R", exclude_regs=[0, 1, 2, 4, 5, 7, 8, 12, 13])
     assert producer.rd is not None and producer.rs1 is not None and producer.rs2 is not None
 
     if haz_type == "raw":
@@ -211,8 +211,8 @@ def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data:
 
     FILLERS = [
         "addi x0, x0, 0",
-        "add x5, x2, x3",
-        "xor x5, x2, x3",
+        "add x6, x3, x9",
+        "xor x6, x3, x9",
     ]
     if "r" in haz_class:
         for idx, field in enumerate(source_fields):

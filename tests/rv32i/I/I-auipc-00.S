@@ -246,24 +246,24 @@ I_auipc_cg_cp_rd_b31:
 
 
 # Testcase cp_gpr_hazard_w nohaz
-  RVTEST_TESTDATA_LOAD_INT(x26, x14) # load rs1: x14 = 0x57fef61f
-  RVTEST_TESTDATA_LOAD_INT(x26, x11) # load rs2: x11 = 0xd012553b
+  RVTEST_TESTDATA_LOAD_INT(x26, x21) # load rs1: x21 = 0x57fef61f
+  RVTEST_TESTDATA_LOAD_INT(x26, x18) # load rs2: x18 = 0xd012553b
 I_auipc_cg_cp_gpr_hazard_w_nohaz:
-  add x17, x14, x11 # perform operation
+  add x23, x21, x18 # perform operation
   auipc x7, 647424 # perform operation
-  # Check if x17 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x15, x5, x4, x17, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
+  # Check if x23 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x15, x5, x4, x23, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
   # Check if x7 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x15, x5, x4, x7, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x26, x11) # load rs1: x11 = 0x136d519a
-  RVTEST_TESTDATA_LOAD_INT(x26, x17) # load rs2: x17 = 0x0d7baa90
+  RVTEST_TESTDATA_LOAD_INT(x26, x30) # load rs1: x30 = 0xaeb4851b
+  RVTEST_TESTDATA_LOAD_INT(x26, x29) # load rs2: x29 = 0xa52ca296
 I_auipc_cg_cp_gpr_hazard_w_waw:
-  add x27, x11, x17 # perform operation
-  auipc x27, 465886 # perform operation
-  # Check if x27 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x15, x5, x4, x27, I_auipc_cg_cp_gpr_hazard_w_waw, I_auipc_cg_cp_gpr_hazard_w_waw_str)
+  add x18, x30, x29 # perform operation
+  auipc x18, 536640 # perform operation
+  # Check if x18 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x15, x5, x4, x18, I_auipc_cg_cp_gpr_hazard_w_waw, I_auipc_cg_cp_gpr_hazard_w_waw_str)
 
 /////////////////////////////////
 // cp_imm_edges_20bit
@@ -442,8 +442,8 @@ RVTEST_DATA_BEGIN
 // Test data
 .word 0x57fef61f
 .word 0xd012553b
-.word 0x136d519a
-.word 0x0d7baa90
+.word 0xaeb4851b
+.word 0xa52ca296
 
 // Testcase strings
 I_auipc_cg_cp_rd_b0_str: .string "\"test: 1; cg: I_auipc_cg; cp: cp_rd; bin: b0\""

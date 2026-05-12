@@ -440,82 +440,82 @@ E_ld_cg_cmp_rd_rs1_nx0_b15:
 
 
 # Testcase cp_gpr_hazard_rw nohaz
-  RVTEST_TESTDATA_LOAD_INT(x3, x1) # load rs1: x1 = 0x0e93253762f4ded0
-  RVTEST_TESTDATA_LOAD_INT(x3, x7) # load rs2: x7 = 0xb091b41a15cbb152
-  addi x6, x3, 361 # copy data_ptr to rs1 and adjust for offset
+  RVTEST_TESTDATA_LOAD_INT(x3, x10) # load rs1: x10 = 0x0e93253762f4ded0
+  RVTEST_TESTDATA_LOAD_INT(x3, x11) # load rs2: x11 = 0xb091b41a15cbb152
+  addi x1, x3, 361 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_nohaz:
-  add x2, x1, x7 # perform operation
-  ld x12, -361(x6) # perform load (0x82555eb905cc34c1)
-  # Check if x2 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x2, E_ld_cg_cp_gpr_hazard_rw_nohaz, E_ld_cg_cp_gpr_hazard_rw_nohaz_str)
+  add x6, x10, x11 # perform operation
+  ld x12, -361(x1) # perform load (0x82555eb905cc34c1)
+  # Check if x6 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x6, E_ld_cg_cp_gpr_hazard_rw_nohaz, E_ld_cg_cp_gpr_hazard_rw_nohaz_str)
   # Check if x12 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x12, E_ld_cg_cp_gpr_hazard_rw_nohaz, E_ld_cg_cp_gpr_hazard_rw_nohaz_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 # Testcase cp_gpr_hazard_rw raw_rs1_0
-  RVTEST_TESTDATA_LOAD_INT(x3, x2) # load rs1: x2 = 0x890ac6e61069c1fa
+  RVTEST_TESTDATA_LOAD_INT(x3, x6) # load rs1: x6 = 0x890ac6e61069c1fa
   RVTEST_TESTDATA_LOAD_INT(x3, x0) # load rs2: x0 = 0x5a2f3bb33e438347
-  addi x2, x3, 203 # copy data_ptr to rs1 and adjust for offset
+  addi x6, x3, 203 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0:
-  add x2, x2, x0 # perform operation
+  add x6, x6, x0 # perform operation
   addi x0, x0, 0
-  ld x13, -203(x2) # perform load (0x845918249fc2cc52)
-  # Check if x2 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x2, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
-  # Check if x13 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x13, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
+  ld x12, -203(x6) # perform load (0x845918249fc2cc52)
+  # Check if x6 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x6, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
+  # Check if x12 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x12, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 # Testcase cp_gpr_hazard_rw raw_rs1_1
-  RVTEST_TESTDATA_LOAD_INT(x3, x1) # load rs1: x1 = 0x02fb6ebc531e89f8
+  RVTEST_TESTDATA_LOAD_INT(x3, x6) # load rs1: x6 = 0x02fb6ebc531e89f8
   RVTEST_TESTDATA_LOAD_INT(x3, x0) # load rs2: x0 = 0xa5b0ff98be2bd13a
-  addi x1, x3, 550 # copy data_ptr to rs1 and adjust for offset
+  addi x6, x3, 550 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1:
-  add x1, x1, x0 # perform operation
-  add x5, x2, x3
-  ld x11, -550(x1) # perform load (0x394736c7ce8bf907)
-  # Check if x1 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x1, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
+  add x6, x6, x0 # perform operation
+  add x6, x3, x9
+  ld x11, -550(x6) # perform load (0x394736c7ce8bf907)
+  # Check if x6 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x6, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
   # Check if x11 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x11, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 # Testcase cp_gpr_hazard_rw raw_rs1_2
-  RVTEST_TESTDATA_LOAD_INT(x3, x7) # load rs1: x7 = 0xb14951aad0f2b873
-  RVTEST_TESTDATA_LOAD_INT(x3, x0) # load rs2: x0 = 0xca2e0f4f52d902b4
-  addi x7, x3, 782 # copy data_ptr to rs1 and adjust for offset
+  RVTEST_TESTDATA_LOAD_INT(x3, x10) # load rs1: x10 = 0x3414e238556e6c73
+  RVTEST_TESTDATA_LOAD_INT(x3, x0) # load rs2: x0 = 0x3561d6942b7bf30f
+  addi x10, x3, -200 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2:
-  add x7, x7, x0 # perform operation
-  xor x5, x2, x3
-  ld x2, -782(x7) # perform load (0x1c0fce1391d1e76a)
+  add x10, x10, x0 # perform operation
+  xor x6, x3, x9
+  ld x7, 200(x10) # perform load (0xa792ebe6fe41abe4)
+  # Check if x10 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x10, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
   # Check if x7 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x7, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
-  # Check if x2 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x2, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2, E_ld_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 # Testcase cp_gpr_hazard_rw waw
-  RVTEST_TESTDATA_LOAD_INT(x3, x8) # load rs1: x8 = 0x4e9aec1a77b3a38d
-  RVTEST_TESTDATA_LOAD_INT(x3, x10) # load rs2: x10 = 0x66d3c579222e0d4b
-  addi x13, x3, 1562 # copy data_ptr to rs1 and adjust for offset
+  RVTEST_TESTDATA_LOAD_INT(x3, x6) # load rs1: x6 = 0x44f229df6e95bffb
+  RVTEST_TESTDATA_LOAD_INT(x3, x11) # load rs2: x11 = 0xe3f840d9bbf699c8
+  addi x10, x3, 230 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_waw:
-  add x12, x8, x10 # perform operation
-  ld x12, -1562(x13) # perform load (0xd3eb36f8ab06dd24)
-  # Check if x12 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x12, E_ld_cg_cp_gpr_hazard_rw_waw, E_ld_cg_cp_gpr_hazard_rw_waw_str)
+  add x15, x6, x11 # perform operation
+  ld x15, -230(x10) # perform load (0x0d35f2abe686357e)
+  # Check if x15 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x15, E_ld_cg_cp_gpr_hazard_rw_waw, E_ld_cg_cp_gpr_hazard_rw_waw_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 # Testcase cp_gpr_hazard_rw war_rs1_0
-  RVTEST_TESTDATA_LOAD_INT(x3, x8) # load rs1: x8 = 0xbf5123d0c3e1de61
-  RVTEST_TESTDATA_LOAD_INT(x3, x1) # load rs2: x1 = 0x17ea2d8ab0211459
-  addi x11, x3, -77 # copy data_ptr to rs1 and adjust for offset
+  RVTEST_TESTDATA_LOAD_INT(x3, x6) # load rs1: x6 = 0x494eada9d586da34
+  RVTEST_TESTDATA_LOAD_INT(x3, x15) # load rs2: x15 = 0xbf5123d0c3e1de61
+  addi x2, x3, -77 # copy data_ptr to rs1 and adjust for offset
 E_ld_cg_cp_gpr_hazard_rw_war_rs1_0:
-  add x7, x8, x1 # perform operation
-  ld x8, 77(x11) # perform load (0x463ded281dde2775)
-  # Check if x7 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x7, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0_str)
-  # Check if x8 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x8, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0_str)
+  add x10, x6, x15 # perform operation
+  ld x6, 77(x2) # perform load (0x463ded281dde2775)
+  # Check if x10 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x10, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0_str)
+  # Check if x6 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x6, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0, E_ld_cg_cp_gpr_hazard_rw_war_rs1_0_str)
   addi x3, x3, SIG_STRIDE # increment data_ptr
 
 /////////////////////////////////
@@ -791,14 +791,14 @@ RVTEST_DATA_BEGIN
 .dword 0x02fb6ebc531e89f8
 .dword 0xa5b0ff98be2bd13a
 .dword 0x394736c7ce8bf907
-.dword 0xb14951aad0f2b873
-.dword 0xca2e0f4f52d902b4
-.dword 0x1c0fce1391d1e76a
-.dword 0x4e9aec1a77b3a38d
-.dword 0x66d3c579222e0d4b
-.dword 0xd3eb36f8ab06dd24
+.dword 0x3414e238556e6c73
+.dword 0x3561d6942b7bf30f
+.dword 0xa792ebe6fe41abe4
+.dword 0x44f229df6e95bffb
+.dword 0xe3f840d9bbf699c8
+.dword 0x0d35f2abe686357e
+.dword 0x494eada9d586da34
 .dword 0xbf5123d0c3e1de61
-.dword 0x17ea2d8ab0211459
 .dword 0x463ded281dde2775
 .dword 0x9b3d19ae88e11d32
 .dword 0x055dffcb19d14210

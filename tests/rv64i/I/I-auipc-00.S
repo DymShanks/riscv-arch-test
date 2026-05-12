@@ -246,24 +246,24 @@ I_auipc_cg_cp_rd_b31:
 
 
 # Testcase cp_gpr_hazard_w nohaz
-  RVTEST_TESTDATA_LOAD_INT(x26, x14) # load rs1: x14 = 0x669a07fc73907159
-  RVTEST_TESTDATA_LOAD_INT(x26, x13) # load rs2: x13 = 0x6e53655c0c2e0221
+  RVTEST_TESTDATA_LOAD_INT(x26, x21) # load rs1: x21 = 0x669a07fc73907159
+  RVTEST_TESTDATA_LOAD_INT(x26, x20) # load rs2: x20 = 0x6e53655c0c2e0221
 I_auipc_cg_cp_gpr_hazard_w_nohaz:
-  add x17, x14, x13 # perform operation
+  add x23, x21, x20 # perform operation
   auipc x11, 576820 # perform operation
-  # Check if x17 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x15, x5, x4, x17, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
+  # Check if x23 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x15, x5, x4, x23, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
   # Check if x11 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x15, x5, x4, x11, I_auipc_cg_cp_gpr_hazard_w_nohaz, I_auipc_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x26, x8) # load rs1: x8 = 0x0d7baa906125609e
-  RVTEST_TESTDATA_LOAD_INT(x26, x11) # load rs2: x11 = 0x9912e035af775116
+  RVTEST_TESTDATA_LOAD_INT(x26, x14) # load rs1: x14 = 0x0d7baa906125609e
+  RVTEST_TESTDATA_LOAD_INT(x26, x18) # load rs2: x18 = 0x9912e035af775116
 I_auipc_cg_cp_gpr_hazard_w_waw:
-  add x22, x8, x11 # perform operation
-  auipc x22, 680742 # perform operation
-  # Check if x22 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x15, x5, x4, x22, I_auipc_cg_cp_gpr_hazard_w_waw, I_auipc_cg_cp_gpr_hazard_w_waw_str)
+  add x29, x14, x18 # perform operation
+  auipc x29, 680742 # perform operation
+  # Check if x29 contains the expected result. x15 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x15, x5, x4, x29, I_auipc_cg_cp_gpr_hazard_w_waw, I_auipc_cg_cp_gpr_hazard_w_waw_str)
 
 /////////////////////////////////
 // cp_imm_edges_20bit

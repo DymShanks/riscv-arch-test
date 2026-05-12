@@ -224,32 +224,32 @@ E_jal_cg_cp_rd_b15:
 
 
 # Testcase cp_gpr_hazard_w nohaz
-  RVTEST_TESTDATA_LOAD_INT(x6, x13) # load rs1: x13 = 0xaf3db6ce
-  RVTEST_TESTDATA_LOAD_INT(x6, x12) # load rs2: x12 = 0xaa8f7485
-  LI(x15, 1) # initialize indicator to 1 (jump taken)
+  RVTEST_TESTDATA_LOAD_INT(x6, x15) # load rs1: x15 = 0xaf3db6ce
+  RVTEST_TESTDATA_LOAD_INT(x6, x14) # load rs2: x14 = 0x11e9c982
+  LI(x7, 1) # initialize indicator to 1 (jump taken)
 E_jal_cg_cp_gpr_hazard_w_nohaz:
-  add x3, x13, x12 # perform operation
-  jal x11, 1f # perform jump
-  # Check if x3 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x3, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
-  LI(x15, -1) # should not execute (jump not taken)
+  add x10, x15, x14 # perform operation
+  jal x2, 1f # perform jump
+  # Check if x10 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x10, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
+  LI(x7, -1) # should not execute (jump not taken)
 1:
-  # Check if x11 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x11, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
-  # Check if x15 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x15, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
+  # Check if x2 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x2, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
+  # Check if x7 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x7, E_jal_cg_cp_gpr_hazard_w_nohaz, E_jal_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x6, x11) # load rs1: x11 = 0xf6c851cb
-  RVTEST_TESTDATA_LOAD_INT(x6, x2) # load rs2: x2 = 0xe03d7e03
+  RVTEST_TESTDATA_LOAD_INT(x6, x15) # load rs1: x15 = 0xf6c851cb
+  RVTEST_TESTDATA_LOAD_INT(x6, x3) # load rs2: x3 = 0xe03d7e03
   LI(x1, 1) # initialize indicator to 1 (jump taken)
 E_jal_cg_cp_gpr_hazard_w_waw:
-  add x13, x11, x2 # perform operation
-  jal x13, 1f # perform jump
+  add x14, x15, x3 # perform operation
+  jal x14, 1f # perform jump
   LI(x1, -1) # should not execute (jump not taken)
 1:
-  # Check if x13 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x9, x5, x4, x13, E_jal_cg_cp_gpr_hazard_w_waw, E_jal_cg_cp_gpr_hazard_w_waw_str)
+  # Check if x14 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x9, x5, x4, x14, E_jal_cg_cp_gpr_hazard_w_waw, E_jal_cg_cp_gpr_hazard_w_waw_str)
   # Check if x1 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x1, E_jal_cg_cp_gpr_hazard_w_waw, E_jal_cg_cp_gpr_hazard_w_waw_str)
 
@@ -693,7 +693,7 @@ RVTEST_DATA_BEGIN
 
 // Test data
 .word 0xaf3db6ce
-.word 0xaa8f7485
+.word 0x11e9c982
 .word 0xf6c851cb
 .word 0xe03d7e03
 

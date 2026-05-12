@@ -145,9 +145,9 @@ E_auipc_cg_cp_rd_b15:
 
 # Testcase cp_gpr_hazard_w nohaz
   RVTEST_TESTDATA_LOAD_INT(x2, x10) # load rs1: x10 = 0x57fef61f
-  RVTEST_TESTDATA_LOAD_INT(x2, x6) # load rs2: x6 = 0xd012553b
+  RVTEST_TESTDATA_LOAD_INT(x2, x14) # load rs2: x14 = 0xd012553b
 E_auipc_cg_cp_gpr_hazard_w_nohaz:
-  add x11, x10, x6 # perform operation
+  add x11, x10, x14 # perform operation
   auipc x3, 647424 # perform operation
   # Check if x11 contains the expected result. x9 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x9, x8, x7, x11, E_auipc_cg_cp_gpr_hazard_w_nohaz, E_auipc_cg_cp_gpr_hazard_w_nohaz_str)
@@ -155,13 +155,13 @@ E_auipc_cg_cp_gpr_hazard_w_nohaz:
   RVTEST_SIGUPD(x9, x8, x7, x3, E_auipc_cg_cp_gpr_hazard_w_nohaz, E_auipc_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x2, x15) # load rs1: x15 = 0xaeb4851b
-  RVTEST_TESTDATA_LOAD_INT(x2, x14) # load rs2: x14 = 0xa52ca296
+  RVTEST_TESTDATA_LOAD_INT(x2, x10) # load rs1: x10 = 0x136d519a
+  RVTEST_TESTDATA_LOAD_INT(x2, x14) # load rs2: x14 = 0x0d7baa90
 E_auipc_cg_cp_gpr_hazard_w_waw:
-  add x6, x15, x14 # perform operation
-  auipc x6, 536640 # perform operation
-  # Check if x6 contains the expected result. x9 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
-  RVTEST_SIGUPD(x9, x8, x7, x6, E_auipc_cg_cp_gpr_hazard_w_waw, E_auipc_cg_cp_gpr_hazard_w_waw_str)
+  add x15, x10, x14 # perform operation
+  auipc x15, 465886 # perform operation
+  # Check if x15 contains the expected result. x9 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
+  RVTEST_SIGUPD(x9, x8, x7, x15, E_auipc_cg_cp_gpr_hazard_w_waw, E_auipc_cg_cp_gpr_hazard_w_waw_str)
 
 /////////////////////////////////
 // cp_imm_edges_20bit
@@ -340,8 +340,8 @@ RVTEST_DATA_BEGIN
 // Test data
 .word 0x57fef61f
 .word 0xd012553b
-.word 0xaeb4851b
-.word 0xa52ca296
+.word 0x136d519a
+.word 0x0d7baa90
 
 // Testcase strings
 E_auipc_cg_cp_rd_b0_str: .string "\"test: 1; cg: E_auipc_cg; cp: cp_rd; bin: b0\""

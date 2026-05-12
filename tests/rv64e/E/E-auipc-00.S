@@ -145,9 +145,9 @@ E_auipc_cg_cp_rd_b15:
 
 # Testcase cp_gpr_hazard_w nohaz
   RVTEST_TESTDATA_LOAD_INT(x2, x10) # load rs1: x10 = 0x669a07fc73907159
-  RVTEST_TESTDATA_LOAD_INT(x2, x12) # load rs2: x12 = 0x6e53655c0c2e0221
+  RVTEST_TESTDATA_LOAD_INT(x2, x14) # load rs2: x14 = 0x6e53655c0c2e0221
 E_auipc_cg_cp_gpr_hazard_w_nohaz:
-  add x11, x10, x12 # perform operation
+  add x11, x10, x14 # perform operation
   auipc x5, 576820 # perform operation
   # Check if x11 contains the expected result. x9 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x9, x8, x7, x11, E_auipc_cg_cp_gpr_hazard_w_nohaz, E_auipc_cg_cp_gpr_hazard_w_nohaz_str)
@@ -155,10 +155,10 @@ E_auipc_cg_cp_gpr_hazard_w_nohaz:
   RVTEST_SIGUPD(x9, x8, x7, x5, E_auipc_cg_cp_gpr_hazard_w_nohaz, E_auipc_cg_cp_gpr_hazard_w_nohaz_str)
 
 # Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x2, x4) # load rs1: x4 = 0x0d7baa906125609e
-  RVTEST_TESTDATA_LOAD_INT(x2, x6) # load rs2: x6 = 0x9912e035af775116
+  RVTEST_TESTDATA_LOAD_INT(x2, x6) # load rs1: x6 = 0x0d7baa906125609e
+  RVTEST_TESTDATA_LOAD_INT(x2, x10) # load rs2: x10 = 0x9912e035af775116
 E_auipc_cg_cp_gpr_hazard_w_waw:
-  add x14, x4, x6 # perform operation
+  add x14, x6, x10 # perform operation
   auipc x14, 680742 # perform operation
   # Check if x14 contains the expected result. x9 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x9, x8, x7, x14, E_auipc_cg_cp_gpr_hazard_w_waw, E_auipc_cg_cp_gpr_hazard_w_waw_str)
