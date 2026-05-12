@@ -2,4 +2,3 @@
         //GPR RAW hazard
         bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
-
