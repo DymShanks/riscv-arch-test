@@ -6654,7 +6654,7 @@ I_bne_cg_cp_gpr_hazard_r_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x9, x12) # load branch taken value: x12 = 0x949b9e3693d55391
 I_bne_cg_cp_gpr_hazard_r_raw_rs1_1:
   add x23, x24, x17 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bne x23, x10, 1f # perform operation
   # Check if x23 contains the expected result. x16 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x16, x8, x7, x23, I_bne_cg_cp_gpr_hazard_r_raw_rs1_1, I_bne_cg_cp_gpr_hazard_r_raw_rs1_1_str)
@@ -6671,7 +6671,7 @@ I_bne_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x9, x17) # load branch taken value: x17 = 0xb55fa33e3341b46a
 I_bne_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x29, x14, x19 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bne x29, x3, 1f # perform operation
   # Check if x29 contains the expected result. x16 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x16, x8, x7, x29, I_bne_cg_cp_gpr_hazard_r_raw_rs1_2, I_bne_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -6705,7 +6705,7 @@ I_bne_cg_cp_gpr_hazard_r_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x9, x24) # load branch taken value: x24 = 0xf1776fee69989019
 I_bne_cg_cp_gpr_hazard_r_raw_rs2_4:
   add x3, x11, x23 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bne x15, x3, 1f # perform operation
   # Check if x3 contains the expected result. x16 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x16, x8, x7, x3, I_bne_cg_cp_gpr_hazard_r_raw_rs2_4, I_bne_cg_cp_gpr_hazard_r_raw_rs2_4_str)
@@ -6722,7 +6722,7 @@ I_bne_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x9, x1) # load branch taken value: x1 = 0x73eb0b146dfc4240
 I_bne_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x14, x15, x25 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bne x11, x14, 1f # perform operation
   # Check if x14 contains the expected result. x16 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x16, x8, x7, x14, I_bne_cg_cp_gpr_hazard_r_raw_rs2_5, I_bne_cg_cp_gpr_hazard_r_raw_rs2_5_str)

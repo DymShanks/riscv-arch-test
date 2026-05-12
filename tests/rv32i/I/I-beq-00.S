@@ -4323,7 +4323,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x18, x9) # load branch taken value: x9 = 0x9369cf2f
 I_beq_cg_cp_gpr_hazard_r_raw_rs1_1:
   add x10, x22, x29 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   beq x10, x17, 1f # perform operation
   # Check if x10 contains the expected result. x24 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x24, x5, x4, x10, I_beq_cg_cp_gpr_hazard_r_raw_rs1_1, I_beq_cg_cp_gpr_hazard_r_raw_rs1_1_str)
@@ -4340,7 +4340,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x18, x19) # load branch taken value: x19 = 0x1cdf06c6
 I_beq_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x25, x26, x28 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   beq x25, x12, 1f # perform operation
   # Check if x25 contains the expected result. x24 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x24, x5, x4, x25, I_beq_cg_cp_gpr_hazard_r_raw_rs1_2, I_beq_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -4374,7 +4374,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x18, x20) # load branch taken value: x20 = 0xedb549fb
 I_beq_cg_cp_gpr_hazard_r_raw_rs2_4:
   add x11, x25, x3 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   beq x23, x11, 1f # perform operation
   # Check if x11 contains the expected result. x24 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x24, x5, x4, x11, I_beq_cg_cp_gpr_hazard_r_raw_rs2_4, I_beq_cg_cp_gpr_hazard_r_raw_rs2_4_str)
@@ -4391,7 +4391,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x18, x17) # load branch taken value: x17 = 0x24ed1b56
 I_beq_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x31, x14, x6 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   beq x29, x31, 1f # perform operation
   # Check if x31 contains the expected result. x24 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x24, x5, x4, x31, I_beq_cg_cp_gpr_hazard_r_raw_rs2_5, I_beq_cg_cp_gpr_hazard_r_raw_rs2_5_str)

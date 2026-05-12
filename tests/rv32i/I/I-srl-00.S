@@ -3304,7 +3304,7 @@ I_srl_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x15, x21) # load rs2: x21 = 0xc0ea9d91
 I_srl_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x29, x27, x30 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   srl x26, x29, x21 # perform operation
   # Check if x29 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x29, I_srl_cg_cp_gpr_hazard_rw_raw_rs1_1, I_srl_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -3318,7 +3318,7 @@ I_srl_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x15, x27) # load rs2: x27 = 0x6cb00553
 I_srl_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x16, x26, x9 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   srl x8, x16, x27 # perform operation
   # Check if x16 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x16, I_srl_cg_cp_gpr_hazard_rw_raw_rs1_2, I_srl_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -3346,7 +3346,7 @@ I_srl_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x15, x25) # load rs2: x25 = 0xef30062b
 I_srl_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x25, x14, x3 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   srl x18, x21, x25 # perform operation
   # Check if x25 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x25, I_srl_cg_cp_gpr_hazard_rw_raw_rs2_4, I_srl_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -3360,7 +3360,7 @@ I_srl_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x15, x30) # load rs2: x30 = 0xa14c285d
 I_srl_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x30, x16, x3 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   srl x13, x20, x30 # perform operation
   # Check if x30 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x30, I_srl_cg_cp_gpr_hazard_rw_raw_rs2_5, I_srl_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

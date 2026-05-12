@@ -859,7 +859,7 @@ E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_0:
   addi x9, x9, -2036 # adjust base address for offset
 E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x9, x9, x0 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   jalr x12, x9, 2036 # perform jump with offset
   # Check if x9 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x9, E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_1, E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -881,7 +881,7 @@ E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_1:
   addi x3, x3, 1618 # adjust base address for offset
 E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x3, x3, x0 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   jalr x11, x3, -1618 # perform jump with offset
   # Check if x3 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x3, E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_2, E_jalr_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -925,7 +925,7 @@ E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_3:
   addi x6, x6, 1915 # adjust base address for offset
 E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x14, x11, x3 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   jalr x7, x6, -1915 # perform jump with offset
   # Check if x14 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x14, E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_4, E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -947,7 +947,7 @@ E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_4:
   addi x12, x12, 716 # adjust base address for offset
 E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x15, x3, x11 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   jalr x0, x12, -716 # perform jump with offset
   # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x15, E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_5, E_jalr_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

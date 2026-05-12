@@ -1698,7 +1698,7 @@ I_sw_cg_cp_gpr_hazard_r_raw_rs2_0:
   addi x1, x1, -1037 # adjust base address for offset
 I_sw_cg_cp_gpr_hazard_r_raw_rs2_1:
   add x3, x30, x29 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sw x3, 1037(x1) # perform store
   addi x1, x1, 1037 # restore base address
   addi x1, x1, SIG_STRIDE # increment signature pointer
@@ -1725,7 +1725,7 @@ I_sw_cg_cp_gpr_hazard_r_raw_rs2_1:
   addi x12, x12, 371 # adjust base address for offset
 I_sw_cg_cp_gpr_hazard_r_raw_rs2_2:
   add x23, x29, x24 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sw x23, -371(x12) # perform store
   addi x12, x12, -371 # restore base address
   addi x12, x12, SIG_STRIDE # increment signature pointer

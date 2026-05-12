@@ -4264,7 +4264,7 @@ I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x6, x20) # load rs2: x20 = 0x30306b266a9b2af4
 I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x10, x15, x31 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sllw x26, x10, x20 # perform operation
   # Check if x10 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x19, x5, x4, x10, I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1, I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -4278,7 +4278,7 @@ I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x6, x2) # load rs2: x2 = 0xb3bdaf792efdd1b4
 I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x14, x27, x16 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sllw x28, x14, x2 # perform operation
   # Check if x14 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x19, x5, x4, x14, I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2, I_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -4306,7 +4306,7 @@ I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x6, x16) # load rs2: x16 = 0x0436a3bb3a93a8b4
 I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x16, x18, x9 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sllw x21, x29, x16 # perform operation
   # Check if x16 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x19, x5, x4, x16, I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4, I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -4320,7 +4320,7 @@ I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x6, x10) # load rs2: x10 = 0x5b95ae26a1deeba3
 I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x10, x21, x31 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sllw x16, x24, x10 # perform operation
   # Check if x10 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x19, x5, x4, x10, I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5, I_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

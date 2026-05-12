@@ -4263,7 +4263,7 @@ I_and_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x20, x31) # load rs2: x31 = 0x359ed54e2b767924
 I_and_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x16, x29, x30 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   and x3, x16, x31 # perform operation
   # Check if x16 contains the expected result. x28 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x28, x5, x4, x16, I_and_cg_cp_gpr_hazard_rw_raw_rs1_1, I_and_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -4277,7 +4277,7 @@ I_and_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x20, x19) # load rs2: x19 = 0x85eb2cd628d5c7c8
 I_and_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x24, x23, x29 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   and x16, x24, x19 # perform operation
   # Check if x24 contains the expected result. x28 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x28, x5, x4, x24, I_and_cg_cp_gpr_hazard_rw_raw_rs1_2, I_and_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -4305,7 +4305,7 @@ I_and_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x20, x15) # load rs2: x15 = 0x2d7dab7e13ef6210
 I_and_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x15, x26, x25 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   and x6, x0, x15 # perform operation
   # Check if x15 contains the expected result. x28 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x28, x5, x4, x15, I_and_cg_cp_gpr_hazard_rw_raw_rs2_4, I_and_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -4319,7 +4319,7 @@ I_and_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x20, x3) # load rs2: x3 = 0xe9ef77e156e1eb8c
 I_and_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x3, x18, x11 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   and x31, x29, x3 # perform operation
   # Check if x3 contains the expected result. x28 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x28, x5, x4, x3, I_and_cg_cp_gpr_hazard_rw_raw_rs2_5, I_and_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

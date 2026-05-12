@@ -4257,7 +4257,7 @@ I_sub_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x15, x10) # load rs2: x10 = 0x1cbab2d46fd37b99
 I_sub_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x23, x29, x28 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sub x24, x23, x10 # perform operation
   # Check if x23 contains the expected result. x16 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x16, x5, x4, x23, I_sub_cg_cp_gpr_hazard_rw_raw_rs1_1, I_sub_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -4271,7 +4271,7 @@ I_sub_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x15, x26) # load rs2: x26 = 0x767139125056077e
 I_sub_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x21, x10, x27 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sub x12, x21, x26 # perform operation
   # Check if x21 contains the expected result. x16 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x16, x5, x4, x21, I_sub_cg_cp_gpr_hazard_rw_raw_rs1_2, I_sub_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -4299,7 +4299,7 @@ I_sub_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x15, x17) # load rs2: x17 = 0x9c81a76290942bc6
 I_sub_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x17, x11, x22 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sub x2, x21, x17 # perform operation
   # Check if x17 contains the expected result. x16 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x16, x5, x4, x17, I_sub_cg_cp_gpr_hazard_rw_raw_rs2_4, I_sub_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -4313,7 +4313,7 @@ I_sub_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x15, x26) # load rs2: x26 = 0x13726d61b9f0b5c1
 I_sub_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x26, x17, x25 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sub x30, x31, x26 # perform operation
   # Check if x26 contains the expected result. x16 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x16, x5, x4, x26, I_sub_cg_cp_gpr_hazard_rw_raw_rs2_5, I_sub_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

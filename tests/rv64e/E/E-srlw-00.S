@@ -3359,7 +3359,7 @@ E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x6, x1) # load rs2: x1 = 0x2d66a9be31d206bd
 E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x10, x14, x15 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   srlw x2, x10, x1 # perform operation
   # Check if x10 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x10, E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_1, E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -3373,7 +3373,7 @@ E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x6, x13) # load rs2: x13 = 0x153c6c8a1f65b88f
 E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x11, x15, x10 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   srlw x3, x11, x13 # perform operation
   # Check if x11 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x11, E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_2, E_srlw_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -3401,7 +3401,7 @@ E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x6, x10) # load rs2: x10 = 0x0d5cfe857dc6dc4a
 E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x10, x14, x15 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   srlw x12, x2, x10 # perform operation
   # Check if x10 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x10, E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_4, E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -3415,7 +3415,7 @@ E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x6, x3) # load rs2: x3 = 0x5c4a4d722f8357c3
 E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x3, x14, x10 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   srlw x12, x8, x3 # perform operation
   # Check if x3 contains the expected result. x9 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x9, x5, x4, x3, E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_5, E_srlw_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

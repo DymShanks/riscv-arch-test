@@ -2012,7 +2012,7 @@ I_slli_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x9, x14) # load rs1: x14 = 0x4ad4ecf045295c6b
 I_slli_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x14, x27, x18 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   slli x12, x14, 14 # perform operation
   # Check if x14 contains the expected result. x11 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x11, x5, x4, x14, I_slli_cg_cp_gpr_hazard_rw_raw_rs1_1, I_slli_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -2025,7 +2025,7 @@ I_slli_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x9, x28) # load rs1: x28 = 0x44a6e9435d9f2e48
 I_slli_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x28, x18, x31 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   slli x19, x28, 46 # perform operation
   # Check if x28 contains the expected result. x11 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x11, x5, x4, x28, I_slli_cg_cp_gpr_hazard_rw_raw_rs1_2, I_slli_cg_cp_gpr_hazard_rw_raw_rs1_2_str)

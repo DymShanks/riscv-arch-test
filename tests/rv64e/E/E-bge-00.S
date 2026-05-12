@@ -6121,7 +6121,7 @@ E_bge_cg_cp_gpr_hazard_r_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x3, x11) # load branch taken value: x11 = 0x1abb69587b46f704
 E_bge_cg_cp_gpr_hazard_r_raw_rs1_1:
   add x9, x6, x10 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bge x9, x4, 1f # perform operation
   # Check if x9 contains the expected result. x1 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x1, x8, x7, x9, E_bge_cg_cp_gpr_hazard_r_raw_rs1_1, E_bge_cg_cp_gpr_hazard_r_raw_rs1_1_str)
@@ -6138,7 +6138,7 @@ E_bge_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x3, x9) # load branch taken value: x9 = 0xbd3ee3ffa9fa2e93
 E_bge_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x10, x6, x11 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bge x10, x5, 1f # perform operation
   # Check if x10 contains the expected result. x1 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x1, x8, x7, x10, E_bge_cg_cp_gpr_hazard_r_raw_rs1_2, E_bge_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -6172,7 +6172,7 @@ E_bge_cg_cp_gpr_hazard_r_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x3, x15) # load branch taken value: x15 = 0xc88ad95f827e0b85
 E_bge_cg_cp_gpr_hazard_r_raw_rs2_4:
   add x9, x10, x14 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bge x13, x9, 1f # perform operation
   # Check if x9 contains the expected result. x1 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x1, x8, x7, x9, E_bge_cg_cp_gpr_hazard_r_raw_rs2_4, E_bge_cg_cp_gpr_hazard_r_raw_rs2_4_str)
@@ -6189,7 +6189,7 @@ E_bge_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x3, x6) # load branch taken value: x6 = 0xd16c1cdd05bf3ce6
 E_bge_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x10, x15, x14 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bge x13, x10, 1f # perform operation
   # Check if x10 contains the expected result. x1 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x1, x8, x7, x10, E_bge_cg_cp_gpr_hazard_r_raw_rs2_5, E_bge_cg_cp_gpr_hazard_r_raw_rs2_5_str)

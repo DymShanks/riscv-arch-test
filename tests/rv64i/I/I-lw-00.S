@@ -858,7 +858,7 @@ I_lw_cg_cp_gpr_hazard_rw_raw_rs1_0:
   addi x11, x20, -1492 # copy data_ptr to rs1 and adjust for offset
 I_lw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x11, x11, x0 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   lw x8, 1492(x11) # perform load (0xbd17742a3985ba82)
   # Check if x11 contains the expected result. x1 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x1, x5, x4, x11, I_lw_cg_cp_gpr_hazard_rw_raw_rs1_1, I_lw_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -872,7 +872,7 @@ I_lw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   addi x24, x20, 1745 # copy data_ptr to rs1 and adjust for offset
 I_lw_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x24, x24, x0 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   lw x9, -1745(x24) # perform load (0xb97a54c3c62ae5c2)
   # Check if x24 contains the expected result. x1 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x1, x5, x4, x24, I_lw_cg_cp_gpr_hazard_rw_raw_rs1_2, I_lw_cg_cp_gpr_hazard_rw_raw_rs1_2_str)

@@ -6660,7 +6660,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x6, x13) # load branch taken value: x13 = 0x8ea7a30cf1a4e36b
 I_beq_cg_cp_gpr_hazard_r_raw_rs1_1:
   add x22, x10, x26 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   beq x22, x23, 1f # perform operation
   # Check if x22 contains the expected result. x2 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x2, x8, x7, x22, I_beq_cg_cp_gpr_hazard_r_raw_rs1_1, I_beq_cg_cp_gpr_hazard_r_raw_rs1_1_str)
@@ -6677,7 +6677,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x6, x22) # load branch taken value: x22 = 0x14c0ac6f4de54cc8
 I_beq_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x9, x28, x19 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   beq x9, x12, 1f # perform operation
   # Check if x9 contains the expected result. x2 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x2, x8, x7, x9, I_beq_cg_cp_gpr_hazard_r_raw_rs1_2, I_beq_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -6711,7 +6711,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x6, x11) # load branch taken value: x11 = 0x5a09b23ca1748b32
 I_beq_cg_cp_gpr_hazard_r_raw_rs2_4:
   add x21, x31, x25 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   beq x16, x21, 1f # perform operation
   # Check if x21 contains the expected result. x2 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x2, x8, x7, x21, I_beq_cg_cp_gpr_hazard_r_raw_rs2_4, I_beq_cg_cp_gpr_hazard_r_raw_rs2_4_str)
@@ -6728,7 +6728,7 @@ I_beq_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x6, x19) # load branch taken value: x19 = 0xaf8b1b056ada692a
 I_beq_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x3, x27, x22 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   beq x5, x3, 1f # perform operation
   # Check if x3 contains the expected result. x2 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x2, x8, x7, x3, I_beq_cg_cp_gpr_hazard_r_raw_rs2_5, I_beq_cg_cp_gpr_hazard_r_raw_rs2_5_str)

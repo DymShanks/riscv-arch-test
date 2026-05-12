@@ -6655,7 +6655,7 @@ I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x11, x30) # load branch taken value: x30 = 0x823932d676a45ff2
 I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_1:
   add x14, x24, x19 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bgeu x14, x28, 1f # perform operation
   # Check if x14 contains the expected result. x10 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x10, x5, x4, x14, I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_1, I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_1_str)
@@ -6672,7 +6672,7 @@ I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x11, x9) # load branch taken value: x9 = 0x1267378070f26f05
 I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x23, x20, x21 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bgeu x23, x3, 1f # perform operation
   # Check if x23 contains the expected result. x10 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x10, x5, x4, x23, I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_2, I_bgeu_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -6706,7 +6706,7 @@ I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x11, x26) # load branch taken value: x26 = 0x0e66c59095532446
 I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_4:
   add x21, x31, x14 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   bgeu x2, x21, 1f # perform operation
   # Check if x21 contains the expected result. x10 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x10, x5, x4, x21, I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_4, I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_4_str)
@@ -6723,7 +6723,7 @@ I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x11, x6) # load branch taken value: x6 = 0x371e75c32cff153a
 I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x3, x26, x20 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   bgeu x1, x3, 1f # perform operation
   # Check if x3 contains the expected result. x10 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x10, x5, x4, x3, I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_5, I_bgeu_cg_cp_gpr_hazard_r_raw_rs2_5_str)

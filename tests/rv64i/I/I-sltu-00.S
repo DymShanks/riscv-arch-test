@@ -4264,7 +4264,7 @@ I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x11, x8) # load rs2: x8 = 0x6c2c93cb31c10369
 I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x19, x20, x14 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sltu x2, x19, x8 # perform operation
   # Check if x19 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x19, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -4278,7 +4278,7 @@ I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x11, x18) # load rs2: x18 = 0xbbd4f47d7bdc5cd9
 I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x29, x10, x17 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sltu x8, x29, x18 # perform operation
   # Check if x29 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x29, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -4306,7 +4306,7 @@ I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x11, x9) # load rs2: x9 = 0x1290815dd7a075d0
 I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x9, x24, x28 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sltu x21, x17, x9 # perform operation
   # Check if x9 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x9, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -4320,7 +4320,7 @@ I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x11, x3) # load rs2: x3 = 0x7b3b4994e178112f
 I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x3, x18, x17 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sltu x2, x13, x3 # perform operation
   # Check if x3 contains the expected result. x6 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x6, x5, x4, x3, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

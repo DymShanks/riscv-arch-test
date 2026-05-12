@@ -211,8 +211,8 @@ def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data:
 
     FILLERS = [
         "addi x0, x0, 0",
-        "add x6, x3, x9",
-        "xor x6, x3, x9",
+        "add x0, x3, x9",
+        "xor x0, x3, x9",
     ]
     if "r" in haz_class:
         for idx, field in enumerate(source_fields):

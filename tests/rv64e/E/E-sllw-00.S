@@ -3365,7 +3365,7 @@ E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_0:
   RVTEST_TESTDATA_LOAD_INT(x3, x5) # load rs2: x5 = 0x5813329b9d76862a
 E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   add x11, x9, x14 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sllw x10, x11, x5 # perform operation
   # Check if x11 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x11, E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1, E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
@@ -3379,7 +3379,7 @@ E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x3, x4) # load rs2: x4 = 0xcaec795c926146d2
 E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x15, x14, x10 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sllw x2, x15, x4 # perform operation
   # Check if x15 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x15, E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2, E_sllw_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -3407,7 +3407,7 @@ E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_3:
   RVTEST_TESTDATA_LOAD_INT(x3, x10) # load rs2: x10 = 0x38bd99b7582c763a
 E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   add x10, x11, x9 # perform operation
-  add x6, x3, x9
+  add x0, x3, x9
   sllw x14, x13, x10 # perform operation
   # Check if x10 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x10, E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4, E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
@@ -3421,7 +3421,7 @@ E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x3, x15) # load rs2: x15 = 0x8d6066ba4c41b3f2
 E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x15, x14, x11 # perform operation
-  xor x6, x3, x9
+  xor x0, x3, x9
   sllw x12, x1, x15 # perform operation
   # Check if x15 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x15, E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5, E_sllw_cg_cp_gpr_hazard_rw_raw_rs2_5_str)
