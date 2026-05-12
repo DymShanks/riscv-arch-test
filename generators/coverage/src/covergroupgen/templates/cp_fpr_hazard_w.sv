@@ -2,4 +2,3 @@
         //FPR write hazard
         bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
-
