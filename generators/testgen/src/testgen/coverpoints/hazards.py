@@ -85,6 +85,7 @@ def _make_gpr_hazard(
     haz_type: str,
     field: str | None,
     case_idx: int,
+    filler: str = "",
 ) -> list[str]:
     """Generate one adjacent GPR producer/consumer hazard testcase."""
     producer = generate_random_params(test_data, "R", exclude_regs=[0])
@@ -121,7 +122,8 @@ def _make_gpr_hazard(
     if instr_type == "S" and haz_type != "waw":
         check1 = write_sigupd(producer.rd, test_data, "int")
 
-    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, label_line, test1, test2]
+    mid = ["  " + filler] if filler else []
+    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, label_line, test1, *mid, test2]
     if haz_type == "waw":
         lines.append(check2)
     elif instr_type == "S":
@@ -149,6 +151,7 @@ def _make_fpr_hazard(
     haz_type: str,
     field: str | None,
     case_idx: int,
+    filler: str = "",
 ) -> list[str]:
     """Generate one adjacent FPR producer/consumer hazard testcase."""
     producer = generate_random_params(test_data, "FR", fp_load_type="single")
@@ -172,7 +175,8 @@ def _make_fpr_hazard(
     setup1, test1, check1 = format_instruction("fadd.s", "FR", test_data, producer)
     setup2, test2, check2 = format_instruction(instr_name, instr_type, test_data, consumer)
 
-    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, label_line, test1, test2]
+    mid = ["  " + filler] if filler else []
+    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, label_line, test1, *mid, test2]
     if haz_type == "waw":
         lines.append(check2)
     else:
@@ -205,9 +209,15 @@ def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data:
 
     test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "nohaz", None, 0))
 
+    FILLERS = [
+        "addi x0, x0, 0",
+        "add x5, x2, x3",
+        "bne x2, x2, 1f\n1:",
+    ]
     if "r" in haz_class:
         for idx, field in enumerate(source_fields):
-            test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "raw", field, idx))
+            for fidx, filler in enumerate(FILLERS):
+                test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "raw", field, idx * len(FILLERS) + fidx, filler))
 
     if "w" in haz_class and has_dest:
         test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "waw", None, 0))
