@@ -17,7 +17,7 @@
 
 // Define the name of this test file for reporting and the size of the signature region
 #define TEST_FILE "I-sltu-00.S"
-#define SIGUPD_COUNT 402
+#define SIGUPD_COUNT 422
 
 // Extra defines (if needed) to enable trap handlers, fpu, vector, etc.
 
@@ -3264,6 +3264,147 @@ I_sltu_cg_cmp_rd_rs1_rs2_b31:
   # Check if x31 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x18, x5, x4, x31, I_sltu_cg_cmp_rd_rs1_rs2_b31, I_sltu_cg_cmp_rd_rs1_rs2_b31_str)
 
+/////////////////////////////////
+// cp_gpr_hazard_rw
+/////////////////////////////////
+
+
+# Testcase cp_gpr_hazard_rw nohaz
+  RVTEST_TESTDATA_LOAD_INT(x10, x3) # load rs1: x3 = 0x70004ef7
+  RVTEST_TESTDATA_LOAD_INT(x10, x21) # load rs2: x21 = 0x2f96f67f
+  RVTEST_TESTDATA_LOAD_INT(x10, x27) # load rs1: x27 = 0x322d4136
+  RVTEST_TESTDATA_LOAD_INT(x10, x7) # load rs2: x7 = 0x269f1efb
+I_sltu_cg_cp_gpr_hazard_rw_nohaz:
+  add x9, x3, x21 # perform operation
+  sltu x19, x27, x7 # perform operation
+  # Check if x9 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x9, I_sltu_cg_cp_gpr_hazard_rw_nohaz, I_sltu_cg_cp_gpr_hazard_rw_nohaz_str)
+  # Check if x19 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x19, I_sltu_cg_cp_gpr_hazard_rw_nohaz, I_sltu_cg_cp_gpr_hazard_rw_nohaz_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs1_0
+  RVTEST_TESTDATA_LOAD_INT(x10, x8) # load rs1: x8 = 0x112fd9c3
+  RVTEST_TESTDATA_LOAD_INT(x10, x15) # load rs2: x15 = 0x8219d73a
+  RVTEST_TESTDATA_LOAD_INT(x10, x1) # load rs1: x1 = 0x9d95fff1
+  RVTEST_TESTDATA_LOAD_INT(x10, x12) # load rs2: x12 = 0x5a60cc65
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0:
+  add x1, x8, x15 # perform operation
+  addi x0, x0, 0
+  sltu x2, x1, x12 # perform operation
+  # Check if x1 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x1, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
+  # Check if x2 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x2, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs1_1
+  RVTEST_TESTDATA_LOAD_INT(x10, x27) # load rs1: x27 = 0x52c3fc00
+  RVTEST_TESTDATA_LOAD_INT(x10, x6) # load rs2: x6 = 0xc27b8808
+  RVTEST_TESTDATA_LOAD_INT(x10, x20) # load rs1: x20 = 0xc6d0b01a
+  RVTEST_TESTDATA_LOAD_INT(x10, x13) # load rs2: x13 = 0xef2a4f33
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1:
+  add x20, x27, x6 # perform operation
+  add x5, x2, x3
+  sltu x12, x20, x13 # perform operation
+  # Check if x20 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x20, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
+  # Check if x12 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x12, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs1_2
+  RVTEST_TESTDATA_LOAD_INT(x10, x30) # load rs1: x30 = 0x6954f7fe
+  RVTEST_TESTDATA_LOAD_INT(x10, x23) # load rs2: x23 = 0x522beded
+  RVTEST_TESTDATA_LOAD_INT(x10, x29) # load rs1: x29 = 0x9d4005b4
+  RVTEST_TESTDATA_LOAD_INT(x10, x8) # load rs2: x8 = 0xfff0745d
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2:
+  add x29, x30, x23 # perform operation
+  bne x2, x2, 1f
+1:
+  sltu x9, x29, x8 # perform operation
+  # Check if x29 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x29, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
+  # Check if x9 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x9, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2, I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs2_3
+  RVTEST_TESTDATA_LOAD_INT(x10, x11) # load rs1: x11 = 0x6c2c93cb
+  RVTEST_TESTDATA_LOAD_INT(x10, x25) # load rs2: x25 = 0x5bffc7c2
+  RVTEST_TESTDATA_LOAD_INT(x10, x1) # load rs1: x1 = 0x1c3edea8
+  RVTEST_TESTDATA_LOAD_INT(x10, x7) # load rs2: x7 = 0x083a259c
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3:
+  add x7, x11, x25 # perform operation
+  addi x0, x0, 0
+  sltu x17, x1, x7 # perform operation
+  # Check if x7 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x7, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3_str)
+  # Check if x17 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x17, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs2_4
+  RVTEST_TESTDATA_LOAD_INT(x10, x31) # load rs1: x31 = 0x53da88d2
+  RVTEST_TESTDATA_LOAD_INT(x10, x9) # load rs2: x9 = 0x63a2cfd7
+  RVTEST_TESTDATA_LOAD_INT(x10, x17) # load rs1: x17 = 0x240acfb8
+  RVTEST_TESTDATA_LOAD_INT(x10, x8) # load rs2: x8 = 0xbbd4f47d
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4:
+  add x8, x31, x9 # perform operation
+  add x5, x2, x3
+  sltu x11, x17, x8 # perform operation
+  # Check if x8 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x8, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
+  # Check if x11 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x11, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4_str)
+
+# Testcase cp_gpr_hazard_rw raw_rs2_5
+  RVTEST_TESTDATA_LOAD_INT(x10, x9) # load rs1: x9 = 0xdca325ec
+  RVTEST_TESTDATA_LOAD_INT(x10, x28) # load rs2: x28 = 0xe40c671d
+  RVTEST_TESTDATA_LOAD_INT(x10, x14) # load rs1: x14 = 0x8b658b6f
+  RVTEST_TESTDATA_LOAD_INT(x10, x29) # load rs2: x29 = 0xa57e9b64
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5:
+  add x29, x9, x28 # perform operation
+  bne x2, x2, 1f
+1:
+  sltu x3, x14, x29 # perform operation
+  # Check if x29 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x29, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5_str)
+  # Check if x3 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x3, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5, I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5_str)
+
+# Testcase cp_gpr_hazard_rw waw
+  RVTEST_TESTDATA_LOAD_INT(x10, x31) # load rs1: x31 = 0xc216da14
+  RVTEST_TESTDATA_LOAD_INT(x10, x21) # load rs2: x21 = 0xfb6fd211
+  RVTEST_TESTDATA_LOAD_INT(x10, x17) # load rs1: x17 = 0x0668149d
+  RVTEST_TESTDATA_LOAD_INT(x10, x9) # load rs2: x9 = 0x5d32f0c8
+I_sltu_cg_cp_gpr_hazard_rw_waw:
+  add x2, x31, x21 # perform operation
+  sltu x2, x17, x9 # perform operation
+  # Check if x2 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x2, I_sltu_cg_cp_gpr_hazard_rw_waw, I_sltu_cg_cp_gpr_hazard_rw_waw_str)
+
+# Testcase cp_gpr_hazard_rw war_rs1_0
+  RVTEST_TESTDATA_LOAD_INT(x10, x24) # load rs1: x24 = 0x356c04b2
+  RVTEST_TESTDATA_LOAD_INT(x10, x31) # load rs2: x31 = 0xb21b92e8
+  RVTEST_TESTDATA_LOAD_INT(x10, x25) # load rs1: x25 = 0x2b665591
+  RVTEST_TESTDATA_LOAD_INT(x10, x7) # load rs2: x7 = 0xaca599b7
+I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0:
+  add x20, x24, x31 # perform operation
+  sltu x24, x25, x7 # perform operation
+  # Check if x20 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x20, I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0, I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0_str)
+  # Check if x24 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x24, I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0, I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0_str)
+
+# Testcase cp_gpr_hazard_rw war_rs2_1
+  RVTEST_TESTDATA_LOAD_INT(x10, x31) # load rs1: x31 = 0x5f14b532
+  RVTEST_TESTDATA_LOAD_INT(x10, x25) # load rs2: x25 = 0x0483880f
+  RVTEST_TESTDATA_LOAD_INT(x10, x21) # load rs1: x21 = 0x4c3f3162
+  RVTEST_TESTDATA_LOAD_INT(x10, x27) # load rs2: x27 = 0x0fb26839
+I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1:
+  add x11, x31, x25 # perform operation
+  sltu x25, x21, x27 # perform operation
+  # Check if x11 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x11, I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1, I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1_str)
+  # Check if x25 contains the expected result. x18 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x18, x5, x4, x25, I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1, I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1_str)
+
   mv x2, x18 # restore signature pointer to default register for teardown
 
 // Instantiate trap handlers and other epilog code, call RVMODEL_HALT at end of test
@@ -4057,6 +4198,46 @@ RVTEST_DATA_BEGIN
 .word 0x9a49d0e6
 .word 0x9d372b28
 .word 0x0c97de45
+.word 0x70004ef7
+.word 0x2f96f67f
+.word 0x322d4136
+.word 0x269f1efb
+.word 0x112fd9c3
+.word 0x8219d73a
+.word 0x9d95fff1
+.word 0x5a60cc65
+.word 0x52c3fc00
+.word 0xc27b8808
+.word 0xc6d0b01a
+.word 0xef2a4f33
+.word 0x6954f7fe
+.word 0x522beded
+.word 0x9d4005b4
+.word 0xfff0745d
+.word 0x6c2c93cb
+.word 0x5bffc7c2
+.word 0x1c3edea8
+.word 0x083a259c
+.word 0x53da88d2
+.word 0x63a2cfd7
+.word 0x240acfb8
+.word 0xbbd4f47d
+.word 0xdca325ec
+.word 0xe40c671d
+.word 0x8b658b6f
+.word 0xa57e9b64
+.word 0xc216da14
+.word 0xfb6fd211
+.word 0x0668149d
+.word 0x5d32f0c8
+.word 0x356c04b2
+.word 0xb21b92e8
+.word 0x2b665591
+.word 0xaca599b7
+.word 0x5f14b532
+.word 0x0483880f
+.word 0x4c3f3162
+.word 0x0fb26839
 
 // Testcase strings
 I_sltu_cg_cp_rs1_b0_str: .string "\"test: 1; cg: I_sltu_cg; cp: cp_rs1; bin: b0\""
@@ -4451,6 +4632,16 @@ I_sltu_cg_cmp_rd_rs1_rs2_b28_str: .string "\"test: 389; cg: I_sltu_cg; cp: cmp_r
 I_sltu_cg_cmp_rd_rs1_rs2_b29_str: .string "\"test: 390; cg: I_sltu_cg; cp: cmp_rd_rs1_rs2; bin: b29\""
 I_sltu_cg_cmp_rd_rs1_rs2_b30_str: .string "\"test: 391; cg: I_sltu_cg; cp: cmp_rd_rs1_rs2; bin: b30\""
 I_sltu_cg_cmp_rd_rs1_rs2_b31_str: .string "\"test: 392; cg: I_sltu_cg; cp: cmp_rd_rs1_rs2; bin: b31\""
+I_sltu_cg_cp_gpr_hazard_rw_nohaz_str: .string "\"test: 393; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: nohaz\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_0_str: .string "\"test: 394; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs1_0\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_1_str: .string "\"test: 395; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs1_1\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs1_2_str: .string "\"test: 396; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs1_2\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_3_str: .string "\"test: 397; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs2_3\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_4_str: .string "\"test: 398; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs2_4\""
+I_sltu_cg_cp_gpr_hazard_rw_raw_rs2_5_str: .string "\"test: 399; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: raw_rs2_5\""
+I_sltu_cg_cp_gpr_hazard_rw_waw_str: .string "\"test: 400; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: waw\""
+I_sltu_cg_cp_gpr_hazard_rw_war_rs1_0_str: .string "\"test: 401; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: war_rs1_0\""
+I_sltu_cg_cp_gpr_hazard_rw_war_rs2_1_str: .string "\"test: 402; cg: I_sltu_cg; cp: cp_gpr_hazard_rw; bin: war_rs2_1\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

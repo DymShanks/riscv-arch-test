@@ -35,6 +35,11 @@ covergroup I_add_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -132,6 +137,11 @@ covergroup I_addi_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -224,6 +234,11 @@ covergroup I_and_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "and"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -323,6 +338,11 @@ covergroup I_andi_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -401,6 +421,11 @@ covergroup I_auipc_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR write hazard
+        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges_20bit : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         // Imm Edges
         bins zero  = {0};
@@ -447,6 +472,11 @@ covergroup I_beq_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "beq"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -560,6 +590,11 @@ covergroup I_bge_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    }
+
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         // some corner values of branch offsets
         bins b_4 = {4};
@@ -669,6 +704,11 @@ covergroup I_bgeu_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "bgeu"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -782,6 +822,11 @@ covergroup I_blt_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    }
+
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         // some corner values of branch offsets
         bins b_4 = {4};
@@ -893,6 +938,11 @@ covergroup I_bltu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    }
+
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         // some corner values of branch offsets
         bins b_4 = {4};
@@ -1002,6 +1052,11 @@ covergroup I_bne_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "bne"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1138,6 +1193,11 @@ covergroup I_jal_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR write hazard
+        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges_jal : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         // imm is the jump offset
         bins b_4     = {4};
@@ -1188,6 +1248,11 @@ covergroup I_jalr_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "jalr"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1248,6 +1313,11 @@ covergroup I_lb_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -1303,6 +1373,11 @@ covergroup I_lbu_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "lbu"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1362,6 +1437,11 @@ covergroup I_lh_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -1419,6 +1499,11 @@ covergroup I_lhu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -1466,6 +1551,11 @@ covergroup I_lui_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "lui"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR write hazard
+        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges_20bit : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1518,6 +1608,11 @@ covergroup I_lw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "lw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1592,6 +1687,11 @@ covergroup I_or_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "or"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -1691,6 +1791,11 @@ covergroup I_ori_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -1772,6 +1877,11 @@ covergroup I_sb_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -1848,6 +1958,11 @@ covergroup I_sh_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sh"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1939,6 +2054,11 @@ covergroup I_sll_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sll"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2038,6 +2158,11 @@ covergroup I_slli_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -2125,6 +2250,11 @@ covergroup I_slt_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "slt"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2224,6 +2354,11 @@ covergroup I_slti_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -2304,6 +2439,11 @@ covergroup I_sltiu_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sltiu"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -2398,6 +2538,11 @@ covergroup I_sltu_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sltu"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2509,6 +2654,11 @@ covergroup I_sra_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -2606,6 +2756,11 @@ covergroup I_srai_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -2693,6 +2848,11 @@ covergroup I_srl_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "srl"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2792,6 +2952,11 @@ covergroup I_srli_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -2879,6 +3044,11 @@ covergroup I_sub_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sub"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2977,6 +3147,11 @@ covergroup I_sw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -3066,6 +3241,11 @@ covergroup I_xor_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "xor"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3165,6 +3345,11 @@ covergroup I_xori_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -3246,6 +3431,11 @@ covergroup I_addiw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "addiw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3340,6 +3530,11 @@ covergroup I_addw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "addw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3440,6 +3635,11 @@ covergroup I_ld_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -3497,6 +3697,11 @@ covergroup I_lwu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
         bins zero  = {0};
         bins p0    = {1};
@@ -3544,6 +3749,11 @@ covergroup I_sd_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sd"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR RAW hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3623,6 +3833,11 @@ covergroup I_slliw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "slliw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3705,6 +3920,11 @@ covergroup I_sllw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sllw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3804,6 +4024,11 @@ covergroup I_sraiw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -3884,6 +4109,11 @@ covergroup I_sraw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "sraw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3983,6 +4213,11 @@ covergroup I_srliw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    }
+
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
         // RD register assignment
     }
@@ -4063,6 +4298,11 @@ covergroup I_srlw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "srlw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4172,6 +4412,11 @@ covergroup I_subw_cg with function sample(ins_t ins);
     cp_asm_count : coverpoint ins.ins_str == "subw"  iff (ins.trap == 0 )  {
         // Number of times instruction is executed
         bins count[]  = {1};
+    }
+
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
+        //GPR hazard
+        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
