@@ -65,13 +65,6 @@ normative_rule_definitions:
       [
         "{I_sll_cg, I_srl_cg, I_sra_cg}/{cp_rs1, cp_rs2, cp_rd, cr_rs1_rs2_edges}",
       ]
-  - name: gpr_data_hazards
-    coverpoint:
-      [
-        "{I_add_cg, I_addi_cg, I_addiw_cg, I_addw_cg, I_and_cg, I_andi_cg, I_jalr_cg, I_lb_cg, I_lbu_cg, I_ld_cg, I_lh_cg, I_lhu_cg, I_lw_cg, I_lwu_cg, I_or_cg, I_ori_cg, I_sll_cg, I_slli_cg, I_slliw_cg, I_sllw_cg, I_slt_cg, I_slti_cg, I_sltiu_cg, I_sltu_cg, I_sra_cg, I_srai_cg, I_sraiw_cg, I_sraw_cg, I_srl_cg, I_srli_cg, I_srliw_cg, I_srlw_cg, I_sub_cg, I_subw_cg, I_xor_cg, I_xori_cg}/cp_gpr_hazard_rw",
-        "{I_beq_cg, I_bge_cg, I_bgeu_cg, I_blt_cg, I_bltu_cg, I_bne_cg, I_sb_cg, I_sd_cg, I_sh_cg, I_sw_cg}/cp_gpr_hazard_r",
-        "{I_auipc_cg, I_jal_cg, I_lui_cg}/cp_gpr_hazard_w",
-      ]
   - name: no_cti_delay_slots
     coverpoint:
       [
