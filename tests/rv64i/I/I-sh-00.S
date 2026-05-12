@@ -1807,8 +1807,7 @@ I_sh_cg_cp_gpr_hazard_r_raw_rs2_1:
   addi x22, x22, -1099 # adjust base address for offset
 I_sh_cg_cp_gpr_hazard_r_raw_rs2_2:
   add x6, x12, x30 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   sh x6, 1099(x22) # perform store
   addi x22, x22, 1099 # restore base address
   addi x22, x22, SIG_STRIDE # increment signature pointer

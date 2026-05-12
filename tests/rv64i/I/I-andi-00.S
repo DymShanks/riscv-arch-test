@@ -3149,8 +3149,7 @@ I_andi_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x3, x15) # load rs1: x15 = 0x966f2378e7c51457
 I_andi_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x15, x23, x11 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   andi x28, x15, -1460 # perform operation
   # Check if x15 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x19, x5, x4, x15, I_andi_cg_cp_gpr_hazard_rw_raw_rs1_2, I_andi_cg_cp_gpr_hazard_rw_raw_rs1_2_str)

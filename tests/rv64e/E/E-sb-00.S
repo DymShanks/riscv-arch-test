@@ -1133,8 +1133,7 @@ E_sb_cg_cp_gpr_hazard_r_raw_rs2_1:
   addi x15, x15, 284 # adjust base address for offset
 E_sb_cg_cp_gpr_hazard_r_raw_rs2_2:
   add x12, x14, x8 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   sb x12, -284(x15) # perform store
   addi x15, x15, -284 # restore base address
   addi x15, x15, SIG_STRIDE # increment signature pointer

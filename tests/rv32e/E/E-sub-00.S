@@ -2420,8 +2420,7 @@ E_sub_cg_cp_gpr_hazard_rw_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x1, x13) # load rs2: x13 = 0x76713912
 E_sub_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x3, x7, x9 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   sub x0, x3, x13 # perform operation
   # Check if x3 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x3, E_sub_cg_cp_gpr_hazard_rw_raw_rs1_2, E_sub_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
@@ -2463,8 +2462,7 @@ E_sub_cg_cp_gpr_hazard_rw_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x1, x11) # load rs2: x11 = 0xa509915c
 E_sub_cg_cp_gpr_hazard_rw_raw_rs2_5:
   add x11, x6, x7 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   sub x9, x14, x11 # perform operation
   # Check if x11 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
   RVTEST_SIGUPD(x2, x5, x4, x11, E_sub_cg_cp_gpr_hazard_rw_raw_rs2_5, E_sub_cg_cp_gpr_hazard_rw_raw_rs2_5_str)

@@ -6672,8 +6672,7 @@ I_bltu_cg_cp_gpr_hazard_r_raw_rs1_1:
   RVTEST_TESTDATA_LOAD_INT(x16, x29) # load branch taken value: x29 = 0xff5b04e9d778bc64
 I_bltu_cg_cp_gpr_hazard_r_raw_rs1_2:
   add x30, x23, x9 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   bltu x30, x5, 1f # perform operation
   # Check if x30 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x30, I_bltu_cg_cp_gpr_hazard_r_raw_rs1_2, I_bltu_cg_cp_gpr_hazard_r_raw_rs1_2_str)
@@ -6724,8 +6723,7 @@ I_bltu_cg_cp_gpr_hazard_r_raw_rs2_4:
   RVTEST_TESTDATA_LOAD_INT(x16, x20) # load branch taken value: x20 = 0xb9e5a825625f11a3
 I_bltu_cg_cp_gpr_hazard_r_raw_rs2_5:
   add x2, x4, x11 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   bltu x24, x2, 1f # perform operation
   # Check if x2 contains the expected result. x6 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x6, x8, x7, x2, I_bltu_cg_cp_gpr_hazard_r_raw_rs2_5, I_bltu_cg_cp_gpr_hazard_r_raw_rs2_5_str)

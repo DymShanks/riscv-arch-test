@@ -212,12 +212,16 @@ def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data:
     FILLERS = [
         "addi x0, x0, 0",
         "add x5, x2, x3",
-        "bne x2, x2, 1f\n1:",
+        "xor x5, x2, x3",
     ]
     if "r" in haz_class:
         for idx, field in enumerate(source_fields):
             for fidx, filler in enumerate(FILLERS):
-                test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "raw", field, idx * len(FILLERS) + fidx, filler))
+                test_lines.extend(
+                    make_hazard(
+                        instr_name, instr_type, coverpoint, test_data, "raw", field, idx * len(FILLERS) + fidx, filler
+                    )
+                )
 
     if "w" in haz_class and has_dest:
         test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "waw", None, 0))

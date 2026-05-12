@@ -488,8 +488,7 @@ E_lh_cg_cp_gpr_hazard_rw_raw_rs1_1:
   addi x1, x2, -1388 # copy data_ptr to rs1 and adjust for offset
 E_lh_cg_cp_gpr_hazard_rw_raw_rs1_2:
   add x1, x1, x0 # perform operation
-  bne x2, x2, 1f
-1:
+  xor x5, x2, x3
   lh x3, 1388(x1) # perform load (0xfb2ef5f2)
   # Check if x1 contains the expected result. x10 is the signature ptr, x8 is the link ptr, x7 is a temp reg.
   RVTEST_SIGUPD(x10, x8, x7, x1, E_lh_cg_cp_gpr_hazard_rw_raw_rs1_2, E_lh_cg_cp_gpr_hazard_rw_raw_rs1_2_str)
