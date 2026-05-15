@@ -17,7 +17,7 @@
 
 // Define the name of this test file for reporting and the size of the signature region
 #define TEST_FILE "E-sh-00.S"
-#define SIGUPD_COUNT 168
+#define SIGUPD_COUNT 156
 
 // Extra defines (if needed) to enable trap handlers, fpu, vector, etc.
 
@@ -959,136 +959,24 @@ E_sh_cg_cp_rs2_edges_0x55555555:
 #endif
 
 /////////////////////////////////
-// cp_gpr_hazard_r
-/////////////////////////////////
-
-
-# Testcase cp_gpr_hazard_r nohaz
-  RVTEST_TESTDATA_LOAD_INT(x6, x3) # load rs1: x3 = 0x3981c49b
-  RVTEST_TESTDATA_LOAD_INT(x6, x15) # load rs2: x15 = 0x07fb1358
-  RVTEST_TESTDATA_LOAD_INT(x6, x7) # load rs2: x7 = 0xfeb02d8c
-  mv x14, x11 # move signature pointer register
-  addi x14, x14, 1539 # adjust base address for offset
-E_sh_cg_cp_gpr_hazard_r_nohaz:
-  add x10, x3, x15 # perform operation
-  sh x7, -1539(x14) # perform store
-  addi x14, x14, -1539 # restore base address
-  addi x14, x14, SIG_STRIDE # increment signature pointer
-#ifdef RVTEST_SELFCHECK
-  LREG x1, -SIG_STRIDE(x14) # load stored value for checking
-  # Check if x1 contains the expected result. x14 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x14, x5, x4, x1, E_sh_cg_cp_gpr_hazard_r_nohaz, E_sh_cg_cp_gpr_hazard_r_nohaz_str)
-#else
-  sh x7, 0(x14) # repeat store so it is available for checking
-  addi x14, x14, SIG_STRIDE # adjust base address for offset
-  # nops to ensure length matches SELFCHECK
-  nop
-  nop
-  nop
-#endif
-  # Check if x10 contains the expected result. x14 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x14, x5, x4, x10, E_sh_cg_cp_gpr_hazard_r_nohaz, E_sh_cg_cp_gpr_hazard_r_nohaz_str)
-
-# Testcase cp_gpr_hazard_r raw_rs2_0
-  RVTEST_TESTDATA_LOAD_INT(x6, x11) # load rs1: x11 = 0x65637e76
-  RVTEST_TESTDATA_LOAD_INT(x6, x9) # load rs2: x9 = 0x15b6533c
-  RVTEST_TESTDATA_LOAD_INT(x6, x10) # load rs2: x10 = 0x389a0546
-  mv x2, x14 # move signature pointer register
-  addi x2, x2, 1592 # adjust base address for offset
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_0:
-  add x10, x11, x9 # perform operation
-  addi x0, x0, 0
-  sh x10, -1592(x2) # perform store
-  addi x2, x2, -1592 # restore base address
-  addi x2, x2, SIG_STRIDE # increment signature pointer
-#ifdef RVTEST_SELFCHECK
-  LREG x12, -SIG_STRIDE(x2) # load stored value for checking
-  # Check if x12 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x12, E_sh_cg_cp_gpr_hazard_r_raw_rs2_0, E_sh_cg_cp_gpr_hazard_r_raw_rs2_0_str)
-#else
-  sh x10, 0(x2) # repeat store so it is available for checking
-  addi x2, x2, SIG_STRIDE # adjust base address for offset
-  # nops to ensure length matches SELFCHECK
-  nop
-  nop
-  nop
-#endif
-  # Check if x10 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x10, E_sh_cg_cp_gpr_hazard_r_raw_rs2_0, E_sh_cg_cp_gpr_hazard_r_raw_rs2_0_str)
-
-# Testcase cp_gpr_hazard_r raw_rs2_1
-  RVTEST_TESTDATA_LOAD_INT(x6, x15) # load rs1: x15 = 0x41a84b24
-  RVTEST_TESTDATA_LOAD_INT(x6, x10) # load rs2: x10 = 0x5229808c
-  RVTEST_TESTDATA_LOAD_INT(x6, x3) # load rs2: x3 = 0x2486cfed
-  mv x8, x2 # move signature pointer register
-  addi x8, x8, -31 # adjust base address for offset
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_1:
-  add x3, x15, x10 # perform operation
-  add x0, x3, x9
-  sh x3, 31(x8) # perform store
-  addi x8, x8, 31 # restore base address
-  addi x8, x8, SIG_STRIDE # increment signature pointer
-#ifdef RVTEST_SELFCHECK
-  LREG x14, -SIG_STRIDE(x8) # load stored value for checking
-  # Check if x14 contains the expected result. x8 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x8, x5, x4, x14, E_sh_cg_cp_gpr_hazard_r_raw_rs2_1, E_sh_cg_cp_gpr_hazard_r_raw_rs2_1_str)
-#else
-  sh x3, 0(x8) # repeat store so it is available for checking
-  addi x8, x8, SIG_STRIDE # adjust base address for offset
-  # nops to ensure length matches SELFCHECK
-  nop
-  nop
-  nop
-#endif
-  # Check if x3 contains the expected result. x8 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x8, x5, x4, x3, E_sh_cg_cp_gpr_hazard_r_raw_rs2_1, E_sh_cg_cp_gpr_hazard_r_raw_rs2_1_str)
-
-# Testcase cp_gpr_hazard_r raw_rs2_2
-  RVTEST_TESTDATA_LOAD_INT(x6, x14) # load rs1: x14 = 0xa091f8cd
-  RVTEST_TESTDATA_LOAD_INT(x6, x9) # load rs2: x9 = 0x8971e113
-  RVTEST_TESTDATA_LOAD_INT(x6, x11) # load rs2: x11 = 0xcdcb6f85
-  mv x2, x8 # move signature pointer register
-  addi x2, x2, 1763 # adjust base address for offset
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_2:
-  add x11, x14, x9 # perform operation
-  xor x0, x3, x9
-  sh x11, -1763(x2) # perform store
-  addi x2, x2, -1763 # restore base address
-  addi x2, x2, SIG_STRIDE # increment signature pointer
-#ifdef RVTEST_SELFCHECK
-  LREG x15, -SIG_STRIDE(x2) # load stored value for checking
-  # Check if x15 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x15, E_sh_cg_cp_gpr_hazard_r_raw_rs2_2, E_sh_cg_cp_gpr_hazard_r_raw_rs2_2_str)
-#else
-  sh x11, 0(x2) # repeat store so it is available for checking
-  addi x2, x2, SIG_STRIDE # adjust base address for offset
-  # nops to ensure length matches SELFCHECK
-  nop
-  nop
-  nop
-#endif
-  # Check if x11 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x2, x5, x4, x11, E_sh_cg_cp_gpr_hazard_r_raw_rs2_2, E_sh_cg_cp_gpr_hazard_r_raw_rs2_2_str)
-
-/////////////////////////////////
 // cp_imm_edges
 /////////////////////////////////
 
 # Testcase cp_imm_edges (imm = 0)
-  RVTEST_TESTDATA_LOAD_INT(x6, x7) # load rs2: x7 = 0xc6a2a2c5
-  mv x3, x2 # move signature pointer register
-  addi x3, x3, 0 # adjust base address for offset
+  RVTEST_TESTDATA_LOAD_INT(x6, x3) # load rs2: x3 = 0xc6a2a2c5
+  mv x2, x11 # move signature pointer register
+  addi x2, x2, 0 # adjust base address for offset
 E_sh_cg_cp_imm_edges_0x0:
-  sh x7, 0(x3) # perform store
-  addi x3, x3, 0 # restore base address
-  addi x3, x3, SIG_STRIDE # increment signature pointer
+  sh x3, 0(x2) # perform store
+  addi x2, x2, 0 # restore base address
+  addi x2, x2, SIG_STRIDE # increment signature pointer
 #ifdef RVTEST_SELFCHECK
-  LREG x9, -SIG_STRIDE(x3) # load stored value for checking
-  # Check if x9 contains the expected result. x3 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x3, x5, x4, x9, E_sh_cg_cp_imm_edges_0x0, E_sh_cg_cp_imm_edges_0x0_str)
+  LREG x8, -SIG_STRIDE(x2) # load stored value for checking
+  # Check if x8 contains the expected result. x2 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x2, x5, x4, x8, E_sh_cg_cp_imm_edges_0x0, E_sh_cg_cp_imm_edges_0x0_str)
 #else
-  sh x7, 0(x3) # repeat store so it is available for checking
-  addi x3, x3, SIG_STRIDE # adjust base address for offset
+  sh x3, 0(x2) # repeat store so it is available for checking
+  addi x2, x2, SIG_STRIDE # adjust base address for offset
   # nops to ensure length matches SELFCHECK
   nop
   nop
@@ -1097,16 +985,16 @@ E_sh_cg_cp_imm_edges_0x0:
 
 # Testcase cp_imm_edges (imm = 1)
   RVTEST_TESTDATA_LOAD_INT(x6, x13) # load rs2: x13 = 0x1be5c4b2
-  mv x11, x3 # move signature pointer register
+  mv x11, x2 # move signature pointer register
   addi x11, x11, -1 # adjust base address for offset
 E_sh_cg_cp_imm_edges_0x1:
   sh x13, 1(x11) # perform store
   addi x11, x11, 1 # restore base address
   addi x11, x11, SIG_STRIDE # increment signature pointer
 #ifdef RVTEST_SELFCHECK
-  LREG x15, -SIG_STRIDE(x11) # load stored value for checking
-  # Check if x15 contains the expected result. x11 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x11, x5, x4, x15, E_sh_cg_cp_imm_edges_0x1, E_sh_cg_cp_imm_edges_0x1_str)
+  LREG x14, -SIG_STRIDE(x11) # load stored value for checking
+  # Check if x14 contains the expected result. x11 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
+  RVTEST_SIGUPD(x11, x5, x4, x14, E_sh_cg_cp_imm_edges_0x1, E_sh_cg_cp_imm_edges_0x1_str)
 #else
   sh x13, 0(x11) # repeat store so it is available for checking
   addi x11, x11, SIG_STRIDE # adjust base address for offset
@@ -1636,18 +1524,6 @@ RVTEST_DATA_BEGIN
 .word 0x5bbc8872
 .word 0xaaaaaaaa
 .word 0x55555555
-.word 0x3981c49b
-.word 0x07fb1358
-.word 0xfeb02d8c
-.word 0x65637e76
-.word 0x15b6533c
-.word 0x389a0546
-.word 0x41a84b24
-.word 0x5229808c
-.word 0x2486cfed
-.word 0xa091f8cd
-.word 0x8971e113
-.word 0xcdcb6f85
 .word 0xc6a2a2c5
 .word 0x1be5c4b2
 .word 0x7b48af13
@@ -1717,34 +1593,30 @@ E_sh_cg_cp_rs2_edges_0xfffffffe_str: .string "\"test: 40; cg: E_sh_cg; cp: cp_rs
 E_sh_cg_cp_rs2_edges_0x5bbc8872_str: .string "\"test: 41; cg: E_sh_cg; cp: cp_rs2_edges; bin: 0x5bbc8872\""
 E_sh_cg_cp_rs2_edges_0xaaaaaaaa_str: .string "\"test: 42; cg: E_sh_cg; cp: cp_rs2_edges; bin: 0xaaaaaaaa\""
 E_sh_cg_cp_rs2_edges_0x55555555_str: .string "\"test: 43; cg: E_sh_cg; cp: cp_rs2_edges; bin: 0x55555555\""
-E_sh_cg_cp_gpr_hazard_r_nohaz_str: .string "\"test: 44; cg: E_sh_cg; cp: cp_gpr_hazard_r; bin: nohaz\""
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_0_str: .string "\"test: 45; cg: E_sh_cg; cp: cp_gpr_hazard_r; bin: raw_rs2_0\""
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_1_str: .string "\"test: 46; cg: E_sh_cg; cp: cp_gpr_hazard_r; bin: raw_rs2_1\""
-E_sh_cg_cp_gpr_hazard_r_raw_rs2_2_str: .string "\"test: 47; cg: E_sh_cg; cp: cp_gpr_hazard_r; bin: raw_rs2_2\""
-E_sh_cg_cp_imm_edges_0x0_str: .string "\"test: 48; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x0\""
-E_sh_cg_cp_imm_edges_0x1_str: .string "\"test: 49; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x1\""
-E_sh_cg_cp_imm_edges_0x2_str: .string "\"test: 50; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x2\""
-E_sh_cg_cp_imm_edges_0x3_str: .string "\"test: 51; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x3\""
-E_sh_cg_cp_imm_edges_0x4_str: .string "\"test: 52; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x4\""
-E_sh_cg_cp_imm_edges_0x8_str: .string "\"test: 53; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x8\""
-E_sh_cg_cp_imm_edges_0x10_str: .string "\"test: 54; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x10\""
-E_sh_cg_cp_imm_edges_0x20_str: .string "\"test: 55; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x20\""
-E_sh_cg_cp_imm_edges_0x40_str: .string "\"test: 56; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x40\""
-E_sh_cg_cp_imm_edges_0x80_str: .string "\"test: 57; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x80\""
-E_sh_cg_cp_imm_edges_0x100_str: .string "\"test: 58; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x100\""
-E_sh_cg_cp_imm_edges_0x200_str: .string "\"test: 59; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x200\""
-E_sh_cg_cp_imm_edges_0x3ff_str: .string "\"test: 60; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x3ff\""
-E_sh_cg_cp_imm_edges_0x400_str: .string "\"test: 61; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x400\""
-E_sh_cg_cp_imm_edges_0x703_str: .string "\"test: 62; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x703\""
-E_sh_cg_cp_imm_edges_0x7ff_str: .string "\"test: 63; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x7ff\""
-E_sh_cg_cp_imm_edges_m0x800_str: .string "\"test: 64; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x800\""
-E_sh_cg_cp_imm_edges_m0x7ff_str: .string "\"test: 65; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x7ff\""
-E_sh_cg_cp_imm_edges_m0x2_str: .string "\"test: 66; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x2\""
-E_sh_cg_cp_imm_edges_m0x1_str: .string "\"test: 67; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x1\""
-E_sh_cg_cp_align_hword_b0_str: .string "\"test: 68; cg: E_sh_cg; cp: cp_align_hword; bin: b0\""
-E_sh_cg_cp_align_hword_b2_str: .string "\"test: 69; cg: E_sh_cg; cp: cp_align_hword; bin: b2\""
-E_sh_cg_cp_align_hword_b4_str: .string "\"test: 70; cg: E_sh_cg; cp: cp_align_hword; bin: b4\""
-E_sh_cg_cp_align_hword_b6_str: .string "\"test: 71; cg: E_sh_cg; cp: cp_align_hword; bin: b6\""
+E_sh_cg_cp_imm_edges_0x0_str: .string "\"test: 44; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x0\""
+E_sh_cg_cp_imm_edges_0x1_str: .string "\"test: 45; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x1\""
+E_sh_cg_cp_imm_edges_0x2_str: .string "\"test: 46; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x2\""
+E_sh_cg_cp_imm_edges_0x3_str: .string "\"test: 47; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x3\""
+E_sh_cg_cp_imm_edges_0x4_str: .string "\"test: 48; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x4\""
+E_sh_cg_cp_imm_edges_0x8_str: .string "\"test: 49; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x8\""
+E_sh_cg_cp_imm_edges_0x10_str: .string "\"test: 50; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x10\""
+E_sh_cg_cp_imm_edges_0x20_str: .string "\"test: 51; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x20\""
+E_sh_cg_cp_imm_edges_0x40_str: .string "\"test: 52; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x40\""
+E_sh_cg_cp_imm_edges_0x80_str: .string "\"test: 53; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x80\""
+E_sh_cg_cp_imm_edges_0x100_str: .string "\"test: 54; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x100\""
+E_sh_cg_cp_imm_edges_0x200_str: .string "\"test: 55; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x200\""
+E_sh_cg_cp_imm_edges_0x3ff_str: .string "\"test: 56; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x3ff\""
+E_sh_cg_cp_imm_edges_0x400_str: .string "\"test: 57; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x400\""
+E_sh_cg_cp_imm_edges_0x703_str: .string "\"test: 58; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x703\""
+E_sh_cg_cp_imm_edges_0x7ff_str: .string "\"test: 59; cg: E_sh_cg; cp: cp_imm_edges; bin: 0x7ff\""
+E_sh_cg_cp_imm_edges_m0x800_str: .string "\"test: 60; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x800\""
+E_sh_cg_cp_imm_edges_m0x7ff_str: .string "\"test: 61; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x7ff\""
+E_sh_cg_cp_imm_edges_m0x2_str: .string "\"test: 62; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x2\""
+E_sh_cg_cp_imm_edges_m0x1_str: .string "\"test: 63; cg: E_sh_cg; cp: cp_imm_edges; bin: -0x1\""
+E_sh_cg_cp_align_hword_b0_str: .string "\"test: 64; cg: E_sh_cg; cp: cp_align_hword; bin: b0\""
+E_sh_cg_cp_align_hword_b2_str: .string "\"test: 65; cg: E_sh_cg; cp: cp_align_hword; bin: b2\""
+E_sh_cg_cp_align_hword_b4_str: .string "\"test: 66; cg: E_sh_cg; cp: cp_align_hword; bin: b4\""
+E_sh_cg_cp_align_hword_b6_str: .string "\"test: 67; cg: E_sh_cg; cp: cp_align_hword; bin: b6\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END

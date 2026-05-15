@@ -17,7 +17,7 @@
 
 // Define the name of this test file for reporting and the size of the signature region
 #define TEST_FILE "I-lui-00.S"
-#define SIGUPD_COUNT 73
+#define SIGUPD_COUNT 69
 
 // Extra defines (if needed) to enable trap handlers, fpu, vector, etc.
 
@@ -238,31 +238,6 @@ I_lui_cg_cp_rd_b31:
   RVTEST_SIGUPD(x19, x5, x4, x31, I_lui_cg_cp_rd_b31, I_lui_cg_cp_rd_b31_str)
 
 /////////////////////////////////
-// cp_gpr_hazard_w
-/////////////////////////////////
-
-
-# Testcase cp_gpr_hazard_w nohaz
-  RVTEST_TESTDATA_LOAD_INT(x9, x10) # load rs1: x10 = 0xc570584643dbf40b
-  RVTEST_TESTDATA_LOAD_INT(x9, x20) # load rs2: x20 = 0x21024e2e7ee432dd
-I_lui_cg_cp_gpr_hazard_w_nohaz:
-  add x14, x10, x20 # perform operation
-  lui x29, 749560 # perform operation
-  # Check if x14 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x14, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
-  # Check if x29 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x29, I_lui_cg_cp_gpr_hazard_w_nohaz, I_lui_cg_cp_gpr_hazard_w_nohaz_str)
-
-# Testcase cp_gpr_hazard_w waw
-  RVTEST_TESTDATA_LOAD_INT(x9, x25) # load rs1: x25 = 0x9652cefe2783bdf0
-  RVTEST_TESTDATA_LOAD_INT(x9, x3) # load rs2: x3 = 0x85aced8397262942
-I_lui_cg_cp_gpr_hazard_w_waw:
-  add x18, x25, x3 # perform operation
-  lui x18, 555289 # perform operation
-  # Check if x18 contains the expected result. x19 is the signature ptr, x5 is the link ptr, x4 is a temp reg.
-  RVTEST_SIGUPD(x19, x5, x4, x18, I_lui_cg_cp_gpr_hazard_w_waw, I_lui_cg_cp_gpr_hazard_w_waw_str)
-
-/////////////////////////////////
 // cp_imm_edges_20bit
 /////////////////////////////////
 
@@ -437,10 +412,7 @@ RVTEST_CODE_END
 RVTEST_DATA_BEGIN
 
 // Test data
-.dword 0xc570584643dbf40b
-.dword 0x21024e2e7ee432dd
-.dword 0x9652cefe2783bdf0
-.dword 0x85aced8397262942
+
 
 // Testcase strings
 I_lui_cg_cp_rd_b0_str: .string "\"test: 1; cg: I_lui_cg; cp: cp_rd; bin: b0\""
@@ -475,35 +447,33 @@ I_lui_cg_cp_rd_b28_str: .string "\"test: 29; cg: I_lui_cg; cp: cp_rd; bin: b28\"
 I_lui_cg_cp_rd_b29_str: .string "\"test: 30; cg: I_lui_cg; cp: cp_rd; bin: b29\""
 I_lui_cg_cp_rd_b30_str: .string "\"test: 31; cg: I_lui_cg; cp: cp_rd; bin: b30\""
 I_lui_cg_cp_rd_b31_str: .string "\"test: 32; cg: I_lui_cg; cp: cp_rd; bin: b31\""
-I_lui_cg_cp_gpr_hazard_w_nohaz_str: .string "\"test: 33; cg: I_lui_cg; cp: cp_gpr_hazard_w; bin: nohaz\""
-I_lui_cg_cp_gpr_hazard_w_waw_str: .string "\"test: 34; cg: I_lui_cg; cp: cp_gpr_hazard_w; bin: waw\""
-I_lui_cg_cp_imm_edges_20bit_0x0_str: .string "\"test: 35; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x0\""
-I_lui_cg_cp_imm_edges_20bit_0x1_str: .string "\"test: 36; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x1\""
-I_lui_cg_cp_imm_edges_20bit_0x2_str: .string "\"test: 37; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x2\""
-I_lui_cg_cp_imm_edges_20bit_0x3_str: .string "\"test: 38; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x3\""
-I_lui_cg_cp_imm_edges_20bit_0x4_str: .string "\"test: 39; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x4\""
-I_lui_cg_cp_imm_edges_20bit_0x8_str: .string "\"test: 40; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x8\""
-I_lui_cg_cp_imm_edges_20bit_0x10_str: .string "\"test: 41; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x10\""
-I_lui_cg_cp_imm_edges_20bit_0x20_str: .string "\"test: 42; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x20\""
-I_lui_cg_cp_imm_edges_20bit_0x40_str: .string "\"test: 43; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x40\""
-I_lui_cg_cp_imm_edges_20bit_0x80_str: .string "\"test: 44; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80\""
-I_lui_cg_cp_imm_edges_20bit_0x100_str: .string "\"test: 45; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x100\""
-I_lui_cg_cp_imm_edges_20bit_0x200_str: .string "\"test: 46; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x200\""
-I_lui_cg_cp_imm_edges_20bit_0x400_str: .string "\"test: 47; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x400\""
-I_lui_cg_cp_imm_edges_20bit_0x800_str: .string "\"test: 48; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x800\""
-I_lui_cg_cp_imm_edges_20bit_0x1000_str: .string "\"test: 49; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x1000\""
-I_lui_cg_cp_imm_edges_20bit_0x2000_str: .string "\"test: 50; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x2000\""
-I_lui_cg_cp_imm_edges_20bit_0x4000_str: .string "\"test: 51; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x4000\""
-I_lui_cg_cp_imm_edges_20bit_0x8000_str: .string "\"test: 52; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x8000\""
-I_lui_cg_cp_imm_edges_20bit_0x10000_str: .string "\"test: 53; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x10000\""
-I_lui_cg_cp_imm_edges_20bit_0x20000_str: .string "\"test: 54; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x20000\""
-I_lui_cg_cp_imm_edges_20bit_0x40000_str: .string "\"test: 55; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x40000\""
-I_lui_cg_cp_imm_edges_20bit_0x7fffe_str: .string "\"test: 56; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x7fffe\""
-I_lui_cg_cp_imm_edges_20bit_0x7ffff_str: .string "\"test: 57; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x7ffff\""
-I_lui_cg_cp_imm_edges_20bit_0x80000_str: .string "\"test: 58; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80000\""
-I_lui_cg_cp_imm_edges_20bit_0x80001_str: .string "\"test: 59; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80001\""
-I_lui_cg_cp_imm_edges_20bit_0xffffe_str: .string "\"test: 60; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0xffffe\""
-I_lui_cg_cp_imm_edges_20bit_0xfffff_str: .string "\"test: 61; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0xfffff\""
+I_lui_cg_cp_imm_edges_20bit_0x0_str: .string "\"test: 33; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x0\""
+I_lui_cg_cp_imm_edges_20bit_0x1_str: .string "\"test: 34; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x1\""
+I_lui_cg_cp_imm_edges_20bit_0x2_str: .string "\"test: 35; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x2\""
+I_lui_cg_cp_imm_edges_20bit_0x3_str: .string "\"test: 36; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x3\""
+I_lui_cg_cp_imm_edges_20bit_0x4_str: .string "\"test: 37; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x4\""
+I_lui_cg_cp_imm_edges_20bit_0x8_str: .string "\"test: 38; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x8\""
+I_lui_cg_cp_imm_edges_20bit_0x10_str: .string "\"test: 39; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x10\""
+I_lui_cg_cp_imm_edges_20bit_0x20_str: .string "\"test: 40; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x20\""
+I_lui_cg_cp_imm_edges_20bit_0x40_str: .string "\"test: 41; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x40\""
+I_lui_cg_cp_imm_edges_20bit_0x80_str: .string "\"test: 42; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80\""
+I_lui_cg_cp_imm_edges_20bit_0x100_str: .string "\"test: 43; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x100\""
+I_lui_cg_cp_imm_edges_20bit_0x200_str: .string "\"test: 44; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x200\""
+I_lui_cg_cp_imm_edges_20bit_0x400_str: .string "\"test: 45; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x400\""
+I_lui_cg_cp_imm_edges_20bit_0x800_str: .string "\"test: 46; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x800\""
+I_lui_cg_cp_imm_edges_20bit_0x1000_str: .string "\"test: 47; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x1000\""
+I_lui_cg_cp_imm_edges_20bit_0x2000_str: .string "\"test: 48; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x2000\""
+I_lui_cg_cp_imm_edges_20bit_0x4000_str: .string "\"test: 49; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x4000\""
+I_lui_cg_cp_imm_edges_20bit_0x8000_str: .string "\"test: 50; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x8000\""
+I_lui_cg_cp_imm_edges_20bit_0x10000_str: .string "\"test: 51; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x10000\""
+I_lui_cg_cp_imm_edges_20bit_0x20000_str: .string "\"test: 52; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x20000\""
+I_lui_cg_cp_imm_edges_20bit_0x40000_str: .string "\"test: 53; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x40000\""
+I_lui_cg_cp_imm_edges_20bit_0x7fffe_str: .string "\"test: 54; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x7fffe\""
+I_lui_cg_cp_imm_edges_20bit_0x7ffff_str: .string "\"test: 55; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x7ffff\""
+I_lui_cg_cp_imm_edges_20bit_0x80000_str: .string "\"test: 56; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80000\""
+I_lui_cg_cp_imm_edges_20bit_0x80001_str: .string "\"test: 57; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0x80001\""
+I_lui_cg_cp_imm_edges_20bit_0xffffe_str: .string "\"test: 58; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0xffffe\""
+I_lui_cg_cp_imm_edges_20bit_0xfffff_str: .string "\"test: 59; cg: I_lui_cg; cp: cp_imm_edges_20bit; bin: 0xfffff\""
 
 // End of test data section and model specific data
 RVTEST_DATA_END
