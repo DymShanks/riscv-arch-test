@@ -42,7 +42,7 @@ The coverpoints in <<t-unprivileged-coverpoints>> are used in most of the unpriv
 |cmp_rd_rs1|32|The rd register has the same register number as the rs1 register.
 |cmp_rd_rs2|32|The rd register has the same register number as the rs2 register.
 |cmp_rd_rs1_rs2|32|The rd register has the same register number as both the rs1 and rs2 registers.
-|cp_gpr_hazard|4|Integer register hazard detection: RAW, WAR, WAW, and no hazard.
+|cp_gpr_hazard|1-3|Integer register hazard detection.
 |cp_offset|2|A branch or jalr instruction has a positive and negative offset.
 |cp_uimm|`XLEN`|Exercise all XLEN unsigned immediate values, such as shift amounts.
 |cp_align|≤ 8|Alignment of naturally-aligned sub-doubleword load/store operand within doubleword
@@ -97,65 +97,24 @@ Notes:
 [[cp-gpr-hazard]]
 ==== Integer Register Hazard Coverpoint
 
-The `cp_gpr_hazard` coverpoint checks integer register data dependencies between a producer instruction and a later consumer instruction.  Phase 1 uses a Category x Category approach: producer instructions are selected from the integer instructions that write an architectural GPR, and consumer instructions are selected from the integer instructions that read one or more architectural GPR source operands.  The generated tests cover the relevant producer/consumer category pairs rather than attempting to enumerate every possible instruction pair manually.
+Depth=_n_ means there are _n_ instructions between the producer and consumer.
+Depth=0 means the consumer immediately follows the producer.
+Depth=1 means exactly one filler instruction separates them.
 
-RAW hazard tests use a Depth=1 3-Class Filler Strategy.  Each generated RAW sequence contains exactly one intervening instruction between the producer and consumer:
+The `cp_gpr_hazard` coverpoint checks integer register data dependencies
+between a producer and a consumer instruction using a Category x Category
+approach. The generating producer instruction is always `add`. Consumer
+instructions vary by category.
 
-* Class A: NOP filler, which preserves the dependency while adding one cycle of separation.
-* Class B: Stressor filler, which performs independent integer work without reading or writing the producer destination register.
-* Class C: Branch filler, which inserts an independent control-flow instruction between the producer and consumer.
+RAW hazard tests are generated at Depth=0 and Depth=1. Depth=1 tests use two filler classes:
 
-[cols="1a,1a", options=header]
-|===
-|Generated assembly sequence
-|Depth=1 SystemVerilog measurement
+* Class A: NOP filler (`addi x0, x0, 0`).
+* Class B: Structural stressor filler — independent integer work on the same
+  functional unit, without touching the producer destination register.
 
-|
-[source,asm]
-----
-# Instruction N-2: Producer
-add x3, x1, x2
-
-# Instruction N-1: Filler, selected from Class A/B/C
-nop
-
-# Instruction N: Consumer
-add x4, x3, x1
-----
-|
-[source,systemverilog]
-----
-cp_gpr_hazard_raw_rs1 : coverpoint (
-    traceDataQ[ins.hart][ins.issue][2].valid &&
-    traceDataQ[ins.hart][ins.issue][2].has_rd &&
-    traceDataQ[ins.hart][ins.issue][2].rd != "x0" &&
-    traceDataQ[ins.hart][ins.issue][2].rd != "zero" &&
-    ins.current.has_rs1 &&
-    ins.current.rs1 == traceDataQ[ins.hart][ins.issue][2].rd
-) iff (ins.trap == 0) {
-    bins hit = {1};
-}
-
-cp_gpr_hazard_raw_rs2 : coverpoint (
-    traceDataQ[ins.hart][ins.issue][2].valid &&
-    traceDataQ[ins.hart][ins.issue][2].has_rd &&
-    traceDataQ[ins.hart][ins.issue][2].rd != "x0" &&
-    traceDataQ[ins.hart][ins.issue][2].rd != "zero" &&
-    ins.current.has_rs2 &&
-    ins.current.rs2 == traceDataQ[ins.hart][ins.issue][2].rd
-) iff (ins.trap == 0) {
-    bins hit = {1};
-}
-----
-|===
-
-The coverage expression deliberately compares the current instruction against `traceDataQ[ins.hart][ins.issue][2]`, the retired instruction two trace entries earlier.  This skips the intervening filler instruction at `traceDataQ[ins.hart][ins.issue][1]` and therefore measures the same Depth=1 producer/filler/consumer sequence emitted by the Python generator.
-
-* It would be possible to add more floating-point coverpoints such as cmp_fd_fs1_fs2_fs3 but the value is considered low.
-
-* The riscvISACOV test plan had cmp_rd_{rs1/rs2}_eqval coverpoints that compare if rd and one of the sources have the same value.  These are generally hit by the cr_rs1_rs2_edges tests, so they don't add interesting additional coverage and were dropped.  riscvISACOV also had cp_{rs1/rs2/rd}_toggle tests that checked if each bit changed from 1 to 0 and vice versa.  This is trivially exercised by providing all 0s followed by all 1s followed by all 0s again, so they were dropped.
-
-
+WAW (Write-After-Write) hazard tests are generated at Depth=0, where both
+producer and consumer write the same destination register.
+The consumer result must win.
 
 [[t-integer-edge-definitions]]
 .Integer Edge Case Definitions
