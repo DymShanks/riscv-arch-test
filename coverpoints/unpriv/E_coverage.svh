@@ -35,9 +35,11 @@ covergroup E_add_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -137,9 +139,11 @@ covergroup E_addi_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -236,9 +240,11 @@ covergroup E_and_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -338,9 +344,11 @@ covergroup E_andi_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -421,9 +429,10 @@ covergroup E_auipc_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR write hazard
-        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges_20bit : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -474,9 +483,9 @@ covergroup E_beq_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -590,9 +599,9 @@ covergroup E_bge_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -706,9 +715,9 @@ covergroup E_bgeu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -822,9 +831,9 @@ covergroup E_blt_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -938,9 +947,9 @@ covergroup E_bltu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1054,9 +1063,9 @@ covergroup E_bne_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges_branch : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1193,9 +1202,10 @@ covergroup E_jal_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR write hazard
-        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges_jal : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1250,9 +1260,11 @@ covergroup E_jalr_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1313,9 +1325,11 @@ covergroup E_lb_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1375,9 +1389,11 @@ covergroup E_lbu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1437,9 +1453,11 @@ covergroup E_lh_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1499,9 +1517,11 @@ covergroup E_lhu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1553,9 +1573,10 @@ covergroup E_lui_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR write hazard
-        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges_20bit : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1610,9 +1631,11 @@ covergroup E_lw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1689,9 +1712,11 @@ covergroup E_or_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -1791,9 +1816,11 @@ covergroup E_ori_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1877,9 +1904,9 @@ covergroup E_sb_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -1960,9 +1987,9 @@ covergroup E_sh_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -2056,9 +2083,11 @@ covergroup E_sll_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2158,9 +2187,11 @@ covergroup E_slli_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2252,9 +2283,11 @@ covergroup E_slt_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2354,9 +2387,11 @@ covergroup E_slti_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -2441,9 +2476,11 @@ covergroup E_sltiu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -2540,9 +2577,11 @@ covergroup E_sltu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2654,9 +2693,11 @@ covergroup E_sra_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2756,9 +2797,11 @@ covergroup E_srai_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2850,9 +2893,11 @@ covergroup E_srl_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -2952,9 +2997,11 @@ covergroup E_srli_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3046,9 +3093,11 @@ covergroup E_sub_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3147,9 +3196,9 @@ covergroup E_sw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3243,9 +3292,11 @@ covergroup E_xor_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3345,9 +3396,11 @@ covergroup E_xori_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3433,9 +3486,11 @@ covergroup E_addiw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3532,9 +3587,11 @@ covergroup E_addw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3635,9 +3692,11 @@ covergroup E_ld_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3697,9 +3756,11 @@ covergroup E_lwu_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3751,9 +3812,9 @@ covergroup E_sd_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR RAW hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD};
+    cp_gpr_hazard_r : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
     }
 
     cp_imm_edges : coverpoint signed'(ins.current.imm)  iff (ins.trap == 0 )  {
@@ -3835,9 +3896,11 @@ covergroup E_slliw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -3922,9 +3985,11 @@ covergroup E_sllw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4024,9 +4089,11 @@ covergroup E_sraiw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4111,9 +4178,11 @@ covergroup E_sraw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4213,9 +4282,11 @@ covergroup E_srliw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4300,9 +4371,11 @@ covergroup E_srlw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
@@ -4414,9 +4487,11 @@ covergroup E_subw_cg with function sample(ins_t ins);
         bins count[]  = {1};
     }
 
-    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR hazard
-        bins hazards[]  = {NO_HAZARD, RAW_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_rw : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins raw_hazard = {RAW_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
 
     cp_rd : coverpoint ins.get_gpr_reg(ins.current.rd)  iff (ins.trap == 0 )  {
