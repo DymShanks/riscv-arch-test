@@ -9,7 +9,6 @@
 
 from __future__ import annotations
 
-from testgen.asm.helpers import write_sigupd
 from testgen.coverpoints.registry import add_coverpoint_generator
 from testgen.data.params import InstructionParams
 from testgen.data.state import TestData
@@ -57,13 +56,19 @@ def _get_param(params: InstructionParams, field: str) -> int:
     return value
 
 
+def _with_hazard_comment(line: str, comment: str) -> str:
+    instr = line.split("#", 1)[0].rstrip()
+    return f"{instr} {comment}"
+
+
 def _generate_with_fixed_int_source(test_data: TestData, instr_type: str, field: str, reg: int) -> InstructionParams:
+    exclude_regs = [0] if _has_int_dest(instr_type) else []
     if field == "rs1":
-        return generate_random_params(test_data, instr_type, rs1=reg)
+        return generate_random_params(test_data, instr_type, rs1=reg, exclude_regs=exclude_regs)
     if field == "rs2":
-        return generate_random_params(test_data, instr_type, rs2=reg)
+        return generate_random_params(test_data, instr_type, rs2=reg, exclude_regs=exclude_regs)
     if field == "rs3":
-        return generate_random_params(test_data, instr_type, rs3=reg)
+        return generate_random_params(test_data, instr_type, rs3=reg, exclude_regs=exclude_regs)
     raise ValueError(f"Unknown integer source field: {field}")
 
 
@@ -77,6 +82,14 @@ def _generate_with_fixed_float_source(test_data: TestData, instr_type: str, fiel
     raise ValueError(f"Unknown floating-point source field: {field}")
 
 
+def _make_gpr_stressor(test_data: TestData) -> str:
+    available_regs = sorted(test_data.int_regs.reg_list - {0})
+    if len(available_regs) < 3:
+        return "addi x0, x0, 0"
+    rd, rs1, rs2 = available_regs[:3]
+    return f"add x{rd}, x{rs1}, x{rs2}"
+
+
 def _make_gpr_hazard(
     instr_name: str,
     instr_type: str,
@@ -86,6 +99,7 @@ def _make_gpr_hazard(
     field: str | None,
     case_idx: int,
     filler: str = "",
+    filler_name: str = "",
 ) -> list[str]:
     """Generate one adjacent GPR producer/consumer hazard testcase."""
     producer = generate_random_params(test_data, "R", exclude_regs=[0, 1, 2, 4, 5, 7, 8, 12, 13])
@@ -103,37 +117,33 @@ def _make_gpr_hazard(
             producer.rs2 = 0
     elif haz_type == "waw":
         consumer = generate_random_params(test_data, instr_type, rd=producer.rd)
-    elif haz_type == "war":
-        assert field is not None
-        consumer = generate_random_params(test_data, instr_type, rd=_get_param(producer, field))
-    elif haz_type == "nohaz":
-        consumer = generate_random_params(test_data, instr_type)
     else:
         raise ValueError(f"Unknown hazard type: {haz_type}")
 
-    bin_name = haz_type if field is None else f"{haz_type}_{field}_{case_idx}"
+    bin_name = (
+        case_idx if isinstance(case_idx, str) else (haz_type if field is None else f"{haz_type}_{field}_{case_idx}")
+    )
     label_line = test_data.add_testcase(bin_name, coverpoint)
+    assert test_data.test_chunk is not None
+    sigupd_count = test_data.test_chunk.sigupd_count
     setup1, test1, check1 = format_instruction("add", "R", test_data, producer)
-    if instr_type == "S":
-        assert test_data.test_chunk is not None
-        test_data.test_chunk.sigupd_count -= 1
+    if check1:
+        test_data.test_chunk.sigupd_count = sigupd_count
         check1 = ""
     setup2, test2, check2 = format_instruction(instr_name, instr_type, test_data, consumer)
-    if instr_type == "S" and haz_type != "waw":
-        check1 = write_sigupd(producer.rd, test_data, "int")
-
-    mid = ["  " + filler] if filler else []
-    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, label_line, test1, *mid, test2]
+    if filler_name == "stressor":
+        filler = _make_gpr_stressor(test_data)
+    mid = [f"  {filler} # depth=1 filler: {filler_name}"] if filler else []
+    if haz_type == "raw":
+        test1 = _with_hazard_comment(test1, f"# RAW producer: writes x{producer.rd}")
+        test2 = _with_hazard_comment(test2, f"# RAW consumer: reads {field} - tests bypass forwarding")
+    elif haz_type == "waw":
+        test1 = _with_hazard_comment(test1, f"# WAW producer: writes x{producer.rd} (must NOT win)")
+        test2 = _with_hazard_comment(test2, f"# WAW consumer: writes x{consumer.rd} (must win - last write)")
+    lines = [f"\n# Testcase {coverpoint} {bin_name}", setup1, setup2, test1, *mid, label_line, test2]
     if haz_type == "waw":
         lines.append(check2)
-    elif instr_type == "S":
-        if check2:
-            lines.append(check2)
-        if check1:
-            lines.append(check1)
     else:
-        if check1:
-            lines.append(check1)
         if check2:
             lines.append(check2)
 
@@ -193,11 +203,10 @@ def _make_fpr_hazard(
 
 @add_coverpoint_generator("cp_gpr_hazard", "cp_fpr_hazard")
 def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data: TestData) -> list[TestChunk]:
-    """Generate adjacent RAW, WAW, WAR, and no-hazard register tests."""
+    """Generate RAW and WAW register hazard tests."""
     tc = test_data.begin_test_chunk()
     haz_class = _hazard_class(coverpoint)
     test_lines: list[str] = []
-
     if coverpoint.startswith("cp_fpr_hazard"):
         source_fields = _float_sources(instr_type)
         has_dest = _has_float_dest(instr_type)
@@ -206,27 +215,28 @@ def make_cp_hazard(instr_name: str, instr_type: str, coverpoint: str, test_data:
         source_fields = _int_sources(instr_type)
         has_dest = _has_int_dest(instr_type)
         make_hazard = _make_gpr_hazard
-
-    test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "nohaz", None, 0))
-
-    FILLERS = [
-        "addi x0, x0, 0",
-        "add x0, x3, x9",
-        "xor x0, x3, x9",
-    ]
+    FILLERS = {
+        "nop": "addi x0, x0, 0",
+        "stressor": "stressor",
+    }
     if "r" in haz_class:
-        for idx, field in enumerate(source_fields):
-            for fidx, filler in enumerate(FILLERS):
+        # Depth=0: producer immediately followed by consumer (no filler)
+        for field in source_fields:
+            bin_name = f"raw_{field}_depth0"
+            test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "raw", field, bin_name))
+        # Depth=1: producer, filler, consumer
+        for field in source_fields:
+            for filler_name, filler in FILLERS.items():
+                bin_name = f"raw_{field}_{filler_name}"
                 test_lines.extend(
-                    make_hazard(
-                        instr_name, instr_type, coverpoint, test_data, "raw", field, idx * len(FILLERS) + fidx, filler
-                    )
+                    _make_gpr_hazard(
+                        instr_name, instr_type, coverpoint, test_data, "raw", field, bin_name, filler, filler_name
+                        )
+                    if make_hazard is _make_gpr_hazard
+                    else make_hazard(instr_name, instr_type, coverpoint, test_data, "raw", field, bin_name, filler)
                 )
-
     if "w" in haz_class and has_dest:
-        test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "waw", None, 0))
-        for idx, field in enumerate(source_fields):
-            test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "war", field, idx))
+        test_lines.extend(make_hazard(instr_name, instr_type, coverpoint, test_data, "waw", None, "waw"))
 
     tc.code = "\n".join(test_lines)
     return [test_data.end_test_chunk()]

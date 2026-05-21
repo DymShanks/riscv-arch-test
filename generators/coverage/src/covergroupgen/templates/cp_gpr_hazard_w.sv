@@ -1,4 +1,5 @@
-    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue)  iff (ins.trap == 0 )  {
-        //GPR write hazard
-        bins hazards[]  = {NO_HAZARD, WAW_HAZARD, WAR_HAZARD};
+    cp_gpr_hazard_w : coverpoint check_gpr_hazards(ins.hart, ins.issue, 1)  iff (ins.trap == 0 )  {
+        bins no_hazard  = {NO_HAZARD};
+        bins waw_hazard = {WAW_HAZARD};
+        bins war_hazard = {WAR_HAZARD};
     }
