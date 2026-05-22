@@ -209,6 +209,112 @@ def _filter_per_operand_crosses(rendered: str, instr_type: str, instr: str = "")
     return "".join(out_lines)
 
 
+# Map instruction Type code → (has_vd_reg_group, has_vs1_reg_group, has_vs2_reg_group).
+# Used to suppress per-operand off_group / overlap crosses for instructions whose
+# encoding hardcodes an operand field (e.g. vid.v has no vs1/vs2 registers — those
+# bits are part of the opcode, so unaligned-vs1 / unaligned-vs2 bins can never fire).
+# vd is recorded as "present" for stores (the vs3 data register lives in the rd field
+# and still has an EMUL-aligned register group constraint).
+_TYPE_OPERANDS: dict[str, tuple[bool, bool, bool]] = {
+    "VVVM": (True, True, True),
+    "VVV": (True, True, True),
+    "VVVMR": (True, True, True),
+    "VVIM": (True, False, True),
+    "VVI": (True, False, True),
+    "VVXM": (True, False, True),
+    "VVX": (True, False, True),
+    "VVFM": (True, False, True),
+    "VVM": (True, False, True),
+    "VV": (True, False, True),
+    "VVR": (True, True, False),
+    "VFVM": (True, False, True),
+    "VI": (True, False, False),
+    "VM": (True, False, False),
+    "VF": (True, False, False),
+    "FV": (False, False, True),
+    "XV": (False, False, True),
+    "XVM": (False, False, True),
+    "VX": (True, False, False),
+    "VXM": (True, False, False),
+    "VXVM": (True, False, True),
+    "VXXM": (True, False, False),
+    "VSX": (True, False, False),
+    "VSXM": (True, False, False),
+    "VSXVM": (True, False, True),
+    "VSXXM": (True, False, False),
+}
+
+
+def _operand_presence(instr_type: str) -> tuple[bool, bool, bool]:
+    """Return (has_vd, has_vs1, has_vs2) register-group presence for a given Type.
+
+    Unknown types default to (True, True, True) so we don't accidentally drop bins
+    for new types that are added without updating this table.
+    """
+    return _TYPE_OPERANDS.get(instr_type, (True, True, True))
+
+
+def _max_legal_lmul_for_instruction(instr: str) -> int:
+    """Return the largest legal LMUL for ``instr`` (≤ 8).
+
+    Mirrors the rules in ``priv/_ssstrictv_helpers.max_legal_lmul``:
+
+    * Segment LS instructions require ``NF * EMUL ≤ 8`` so EMUL ≤ 8/NF.
+    * Widening / narrowing ops have an operand with EEW = 2*SEW so EMUL = 2*LMUL,
+      capping LMUL at 4.
+    * Otherwise LMUL ≤ 8.
+    """
+    _c = _load_vector_testgen_common()
+    if _c is None:
+        return 8
+    nf = _c.getInstructionSegments(instr) if hasattr(_c, "getInstructionSegments") else 1
+    if nf and nf > 1:
+        cap = 8 // nf
+        for m in (8, 4, 2, 1):
+            if m <= cap:
+                return m
+        return 1
+    if instr in getattr(_c, "vd_widen_ins", ()) or instr in getattr(_c, "vs2_widen_ins", ()):
+        return 4
+    return 8
+
+
+_LMUL_CROSS_RE = re.compile(r"cp_ssstrictv_lmul(\d+)_(vd|vs1|vs2)_off_group")
+
+
+def _filter_per_operand_crosses(rendered: str, instr_type: str, instr: str = "") -> str:
+    """Drop cross lines tied to operands the instruction's Type does not encode.
+
+    The ``cp_ssstrictv_lmulgt1_off_group`` template emits one cross per (lmul,
+    operand) pair. Two reasons we may drop a cross:
+
+    * Operand absent in the Type encoding (e.g. ``vid.v`` has no vs1/vs2).
+    * The (LMUL, instruction) combination is illegal — e.g. widening ops cap at
+      LMUL=4 because vd has EEW=2*SEW, and segment LS caps at LMUL=8/NF.
+    """
+    has_vd, has_vs1, has_vs2 = _operand_presence(instr_type)
+    max_lmul = _max_legal_lmul_for_instruction(instr) if instr else 8
+    if has_vd and has_vs1 and has_vs2 and max_lmul >= 8:
+        return rendered
+    out_lines: list[str] = []
+    for line in rendered.splitlines(keepends=True):
+        stripped = line.lstrip()
+        m = _LMUL_CROSS_RE.search(stripped)
+        if m and stripped.startswith("cp_ssstrictv_lmul"):
+            lmul = int(m.group(1))
+            role = m.group(2)
+            if role == "vd" and not has_vd:
+                continue
+            if role == "vs1" and not has_vs1:
+                continue
+            if role == "vs2" and not has_vs2:
+                continue
+            if lmul > max_lmul:
+                continue
+        out_lines.append(line)
+    return "".join(out_lines)
+
+
 def _write_if_changed(path: Path, content: str) -> None:
     """Write content only if it differs from the existing file, to avoid unnecessary rebuilds."""
     if path.exists() and path.read_text() == content:
